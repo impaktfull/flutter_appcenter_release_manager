@@ -99,7 +99,9 @@ class _AppCenterReleaseManagerLatestReleasesState extends State<AppCenterRelease
                 MaterialButton(
                   child: Text(
                     'Download',
-                    style: theme.accentTextTheme.bodyText1,
+                    style: theme.accentTextTheme.bodyText1.copyWith(
+                      color: theme.accentColorBrightness == Brightness.light ? Colors.white : Colors.black,
+                    ),
                   ),
                   color: theme.accentColor,
                   onPressed: () => _appCenterReleaseManager.installRelease(_releaseDetail),
