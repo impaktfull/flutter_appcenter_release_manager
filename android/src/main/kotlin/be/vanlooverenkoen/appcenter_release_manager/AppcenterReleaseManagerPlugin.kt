@@ -1,7 +1,6 @@
 package be.vanlooverenkoen.appcenter_release_manager
 
 import android.app.DownloadManager
-import android.app.Notification.VISIBILITY_PUBLIC
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -67,7 +66,7 @@ class AppcenterReleaseManagerPlugin : FlutterPlugin, MethodCallHandler {
                 val install = Intent(Intent.ACTION_VIEW)
                 install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                val fileProviderUri = FileProvider.getUriForFile(context, "${context.packageName}.fileProvider", file)
+                val fileProviderUri = FileProvider.getUriForFile(context, "${context.packageName}.fileProvider.install", file)
                 install.setDataAndType(fileProviderUri, manager.getMimeTypeForDownloadedFile(downloadId))
                 ctxt.startActivity(install)
                 ctxt.unregisterReceiver(this)
