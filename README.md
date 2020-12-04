@@ -24,7 +24,13 @@ final details = await AppCenterReleaseManager(apiToken: '').getLatestReleaseDeta
 AppCenterReleaseManager(apiToken: '').installRelease(details);                                                      
 ```
 
-### Options available by the AppCenterReleaseManager:
+Or by url
+```dart
+final details = await AppCenterReleaseManager(apiToken: '').getLatestReleaseDetails('owner_name','app_name');
+AppCenterReleaseManager(apiToken: '').installReleaseByUrl(details.installUrl, appName: 'your-app-name', appVersion: 'your-version'); //appName & appVersion will be used in the notification on android. On iOS this is never used                                                      
+```
+
+### Other available methods for the AppCenterReleaseManager:
 ```dart
 AppCenterReleaseManager(apiToken: '').getAllOrganizations(); //global api token only
 
