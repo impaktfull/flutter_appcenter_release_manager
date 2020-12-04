@@ -16,7 +16,7 @@ class AppCenterReleaseManagerLatestReleases extends StatefulWidget {
     @required this.ownerName,
     @required this.appName,
     this.showLogs = false,
-  }) : assert(showLogs);
+  }) : assert(showLogs != null);
 
   @override
   _AppCenterReleaseManagerLatestReleasesState createState() => _AppCenterReleaseManagerLatestReleasesState();
