@@ -24,7 +24,7 @@ echo ""
 echo "===="
 echo "Start coveralls upload"
 echo "===="
-coveralls-lcov coverage/lcov.info || exit -1;
+coveralls-lcov coverage/lcov.info
 echo "===="
 echo "Finished coveralls upload"
 echo "===="
