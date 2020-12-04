@@ -1,5 +1,5 @@
 name: appcenter_release_manager
-description: Update your apps from appcenter with this plugin
+description: Download appcenter updates straight from your iOS or Android app.
 version: 0.0.1
 
 environment:
