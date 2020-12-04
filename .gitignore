@@ -79,6 +79,7 @@
 /coverage/lcov.info
 /coverage/coverage.xml
 /coverage/html/**
+/test/coverage_helper_test.dart
 
 # Test Golden files
 **_isolatedDiff.png

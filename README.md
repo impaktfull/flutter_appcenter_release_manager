@@ -7,7 +7,7 @@
 Download appcenter updates straight from your iOS or Android app.
 
 
-### Use the predefined UI
+### Use the predefined UI with the AppcenterReleaseManagerLatestReleases widget
 ```dart
   AppcenterReleaseManagerLatestReleases(
     apiToken: 'your-api-token',
@@ -16,7 +16,7 @@ Download appcenter updates straight from your iOS or Android app.
   ),
 ```
 
-### Use the manager to create your custom ui
+### Use the manager to create your custom ui. Should be used as a repository/service
 ```dart
 AppCenterReleaseManager(
   apiToken: 'your-api-token',
@@ -74,10 +74,10 @@ For most cases you don't want this permission in Production. To remove this. Add
 
 In most cases you will place this in
 
-/android/app/src/release/AndroidManifest.xml
+`/android/app/src/release/AndroidManifest.xml`
 
 But if you are using a flavour like `prod`, `alpha`, `beta` it will probably only be added here:
 
-/android/app/src/prod/AndroidManifest.xml
+`/android/app/src/prod/AndroidManifest.xml`
 
 This will make sure that the permission is only removed in `prod` so you can still install updates in `beta` & `alpha`
