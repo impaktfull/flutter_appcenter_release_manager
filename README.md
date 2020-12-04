@@ -1,5 +1,7 @@
 # appcenter_release_manager
 
+Download appcenter updates straight from your iOS or Android app.
+
 ### Use the predefined UI
 ```dart
   AppcenterReleaseManagerLatestReleases(
