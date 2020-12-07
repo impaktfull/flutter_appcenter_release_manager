@@ -1,6 +1,6 @@
 # appcenter_release_manager
 
-[![Build Status](https://travis-ci.com/vanlooverenkoen/flutter_appcenter_downloader.svg?branch=master)](https://travis-ci.com/vanlooverenkoen/flutter_appcenter_downloader)
+[![Build Status](https://travis-ci.com/vanlooverenkoen/flutter_appcenter_release_manager.svg?branch=master)](https://travis-ci.com/vanlooverenkoen/flutter_appcenter_release_manager)
 [![Coverage Status](https://coveralls.io/repos/github/vanlooverenkoen/flutter_appcenter_release_manager/badge.svg)](https://coveralls.io/github/vanlooverenkoen/flutter_appcenter_release_manager)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
