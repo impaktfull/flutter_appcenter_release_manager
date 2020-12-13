@@ -1,4 +1,4 @@
-# appcenter_release_manager
+# AppCenter Release Manager
 
 [![Build Status](https://travis-ci.com/vanlooverenkoen/flutter_appcenter_release_manager.svg?branch=master)](https://travis-ci.com/vanlooverenkoen/flutter_appcenter_release_manager)
 [![Coverage Status](https://coveralls.io/repos/github/vanlooverenkoen/flutter_appcenter_release_manager/badge.svg)](https://coveralls.io/github/vanlooverenkoen/flutter_appcenter_release_manager)
