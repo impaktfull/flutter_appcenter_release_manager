@@ -71,9 +71,11 @@ class ReleaseDetail {
         installUrl: json['install_url'] as String,
         enabled: json['enabled'] as bool,
         provisioningProfileType: json['provisioning_profile_type'] as String,
-        provisioningProfileExpiryDate: json['provisioning_profile_expiry_date'] as String,
+        provisioningProfileExpiryDate:
+            json['provisioning_profile_expiry_date'] as String,
         provisioningProfileName: json['provisioning_profile_name'] as String,
-        isProvisioningProfileSyncing: json['is_provisioning_profile_syncing'] as bool,
+        isProvisioningProfileSyncing:
+            json['is_provisioning_profile_syncing'] as bool,
         releaseNotes: json['release_notes'] as String,
       );
 

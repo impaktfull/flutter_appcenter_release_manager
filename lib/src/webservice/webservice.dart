@@ -16,7 +16,8 @@ class Webservice {
       headers: {'X-API-Token': apiToken},
     );
     if (result.statusCode != 200) {
-      throw AppCenterApiError('Failed with ${result.statusCode} & body: ${result.body}');
+      throw AppCenterApiError(
+          'Failed with ${result.statusCode} & body: ${result.body}');
     }
     return jsonDecode(result.body) as T;
   }

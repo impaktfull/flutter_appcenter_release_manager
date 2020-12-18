@@ -101,7 +101,8 @@ class _OwnerListState extends State<OwnerList> {
             width: 64,
             height: 64,
             padding: const EdgeInsets.all(4),
-            child: item.avatarUrl == null ? null : Image.network(item.avatarUrl),
+            child:
+                item.avatarUrl == null ? null : Image.network(item.avatarUrl),
           ),
           title: Text(item.name),
           onTap: () => Navigator.of(context).push<void>(
@@ -141,7 +142,8 @@ class _OwnerAppListState extends State<OwnerAppList> {
   }
 
   Future<void> _getApps() async {
-    _list = await widget.appCenterReleaseManager.getAllApps(ownerName: widget.owner.name);
+    _list = await widget.appCenterReleaseManager
+        .getAllApps(ownerName: widget.owner.name);
     setState(() {});
   }
 
@@ -250,7 +252,8 @@ class _AppDetailState extends State<AppDetail> {
   }
 
   Future<void> _getApps() async {
-    _list = await widget.appCenterReleaseManager.getReleases(widget.app.owner.name, widget.app.name);
+    _list = await widget.appCenterReleaseManager
+        .getReleases(widget.app.owner.name, widget.app.name);
     setState(() {});
   }
 
@@ -306,7 +309,8 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
   }
 
   Future<void> _getApps() async {
-    _details = await widget.appCenterReleaseManager.getReleaseDetails(widget.app.owner.name, widget.app.name, widget.release.id);
+    _details = await widget.appCenterReleaseManager.getReleaseDetails(
+        widget.app.owner.name, widget.app.name, widget.release.id);
     setState(() {});
   }
 
@@ -327,7 +331,8 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
                     style: TextStyle(color: Colors.white),
                   ),
                   color: Colors.blue,
-                  onPressed: () => widget.appCenterReleaseManager.installRelease(_details),
+                  onPressed: () =>
+                      widget.appCenterReleaseManager.installRelease(_details),
                 ),
               ],
       ),

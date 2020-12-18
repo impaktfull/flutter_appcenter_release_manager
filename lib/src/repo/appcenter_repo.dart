@@ -10,7 +10,9 @@ abstract class AppCenterRepo {
 
   Future<List<Release>> getReleases(String ownerName, String appName);
 
-  Future<ReleaseDetail> getReleaseDetail(String ownerName, String appName, int id);
+  Future<ReleaseDetail> getReleaseDetail(
+      String ownerName, String appName, int id);
 
-  Future<ReleaseDetail> getLatestReleaseDetail(String ownerName, String appName);
+  Future<ReleaseDetail> getLatestReleaseDetail(
+      String ownerName, String appName);
 }

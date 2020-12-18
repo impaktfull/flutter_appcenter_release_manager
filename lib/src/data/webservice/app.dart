@@ -45,7 +45,9 @@ class App {
         createdAt: json['created_at'] as String,
         updatedAt: json['updated_at'] as String,
         releaseType: json['release_type'] as String,
-        owner: json['owner'] != null ? Owner.fromJson(json['owner'] as Map<String, dynamic>) : null,
+        owner: json['owner'] != null
+            ? Owner.fromJson(json['owner'] as Map<String, dynamic>)
+            : null,
       );
 
   Map<String, dynamic> toJson() {

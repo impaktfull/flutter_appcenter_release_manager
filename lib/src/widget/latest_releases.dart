@@ -19,10 +19,12 @@ class AppCenterReleaseManagerLatestReleases extends StatefulWidget {
   }) : assert(showLogs != null);
 
   @override
-  _AppCenterReleaseManagerLatestReleasesState createState() => _AppCenterReleaseManagerLatestReleasesState();
+  _AppCenterReleaseManagerLatestReleasesState createState() =>
+      _AppCenterReleaseManagerLatestReleasesState();
 }
 
-class _AppCenterReleaseManagerLatestReleasesState extends State<AppCenterReleaseManagerLatestReleases> {
+class _AppCenterReleaseManagerLatestReleasesState
+    extends State<AppCenterReleaseManagerLatestReleases> {
   AppCenterReleaseManager _appCenterReleaseManager;
   var _loading = false;
   var _error = false;
@@ -34,7 +36,8 @@ class _AppCenterReleaseManagerLatestReleasesState extends State<AppCenterRelease
   @override
   void initState() {
     super.initState();
-    _appCenterReleaseManager = AppCenterReleaseManager(apiToken: widget.apiToken);
+    _appCenterReleaseManager =
+        AppCenterReleaseManager(apiToken: widget.apiToken);
     _getData();
   }
 
@@ -93,18 +96,22 @@ class _AppCenterReleaseManagerLatestReleasesState extends State<AppCenterRelease
                 const SizedBox(height: 8),
                 Text(
                   DateTimeFormatter.format(_releaseDetail.uploadedAt),
-                  style: theme.textTheme.subtitle2.copyWith(fontWeight: FontWeight.normal),
+                  style: theme.textTheme.subtitle2
+                      .copyWith(fontWeight: FontWeight.normal),
                 ),
                 const SizedBox(height: 16),
                 MaterialButton(
                   child: Text(
                     'Download',
                     style: theme.accentTextTheme.bodyText1.copyWith(
-                      color: theme.accentColorBrightness == Brightness.light ? Colors.white : Colors.black,
+                      color: theme.accentColorBrightness == Brightness.light
+                          ? Colors.white
+                          : Colors.black,
                     ),
                   ),
                   color: theme.accentColor,
-                  onPressed: () => _appCenterReleaseManager.installRelease(_releaseDetail),
+                  onPressed: () =>
+                      _appCenterReleaseManager.installRelease(_releaseDetail),
                 ),
                 const SizedBox(height: 16),
                 Text(
@@ -141,7 +148,8 @@ class _AppCenterReleaseManagerLatestReleasesState extends State<AppCenterRelease
       _loading = _releases.isEmpty;
       _error = false;
       setState(() {});
-      final data = await _appCenterReleaseManager.getReleases(widget.ownerName, widget.appName);
+      final data = await _appCenterReleaseManager.getReleases(
+          widget.ownerName, widget.appName);
       _releases
         ..clear()
         ..addAll(data);
@@ -169,7 +177,8 @@ class _AppCenterReleaseManagerLatestReleasesState extends State<AppCenterRelease
       _loading = _releaseDetail == null;
       _error = false;
       setState(() {});
-      _releaseDetail = await _appCenterReleaseManager.getReleaseDetails(widget.ownerName, widget.appName, _selectedItem.id);
+      _releaseDetail = await _appCenterReleaseManager.getReleaseDetails(
+          widget.ownerName, widget.appName, _selectedItem.id);
     } catch (e) {
       if (widget.showLogs) print(e); // ignore: avoid_print
       _error = true;
