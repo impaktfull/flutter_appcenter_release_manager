@@ -33,8 +33,7 @@ class AppCenterReleaseManager {
         AppCenterRepository(webservice: Webservice(apiToken: apiToken));
   }
 
-  Future<User> getUserDetails() =>
-      _releaseRepo.getUserDetails();
+  Future<User> getUserDetails() => _releaseRepo.getUserDetails();
 
   Future<List<Owner>> getAllOrganizations() =>
       _releaseRepo.getAllOrganizations();
