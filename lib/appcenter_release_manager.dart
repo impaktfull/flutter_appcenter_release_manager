@@ -6,4 +6,5 @@ export 'src/data/webservice/app.dart';
 export 'src/data/webservice/owner.dart';
 export 'src/data/webservice/release.dart';
 export 'src/data/webservice/release_details.dart';
+export 'src/data/webservice/user.dart';
 export 'src/widget/latest_releases.dart';
