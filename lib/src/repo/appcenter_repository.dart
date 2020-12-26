@@ -3,6 +3,7 @@ import 'package:appcenter_release_manager/src/data/webservice/app.dart';
 import 'package:appcenter_release_manager/src/data/webservice/owner.dart';
 import 'package:appcenter_release_manager/src/data/webservice/release.dart';
 import 'package:appcenter_release_manager/src/data/webservice/release_details.dart';
+import 'package:appcenter_release_manager/src/data/webservice/user.dart';
 import 'package:appcenter_release_manager/src/repo/appcenter_repo.dart';
 import 'package:appcenter_release_manager/src/webservice/webservice.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,12 @@ class AppCenterRepository extends AppCenterRepo {
   AppCenterRepository({
     @required this.webservice,
   });
+
+  @override
+  Future<User> getUserDetails() async {
+    final data = await webservice.get<Map<dynamic, dynamic>>('/v0.1/user');
+    return User.fromJson(data as Map<String, dynamic>);
+  }
 
   @override
   Future<List<Owner>> getAllOrganizations() async {

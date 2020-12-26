@@ -5,6 +5,7 @@ import 'package:appcenter_release_manager/src/data/webservice/app.dart';
 import 'package:appcenter_release_manager/src/data/webservice/owner.dart';
 import 'package:appcenter_release_manager/src/data/webservice/release.dart';
 import 'package:appcenter_release_manager/src/data/webservice/release_details.dart';
+import 'package:appcenter_release_manager/src/data/webservice/user.dart';
 import 'package:appcenter_release_manager/src/repo/appcenter_repo.dart';
 import 'package:appcenter_release_manager/src/repo/appcenter_repository.dart';
 import 'package:appcenter_release_manager/src/webservice/webservice.dart';
@@ -31,6 +32,9 @@ class AppCenterReleaseManager {
     _releaseRepo =
         AppCenterRepository(webservice: Webservice(apiToken: apiToken));
   }
+
+  Future<User> getUserDetails() =>
+      _releaseRepo.getUserDetails();
 
   Future<List<Owner>> getAllOrganizations() =>
       _releaseRepo.getAllOrganizations();

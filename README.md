@@ -10,6 +10,7 @@ Download appcenter updates straight from your iOS or Android app.
 
 
 ### Use the predefined UI with the AppcenterReleaseManagerLatestReleases widget
+Api Token should have read access only
 ```dart
   AppcenterReleaseManagerLatestReleases(
     apiToken: 'your-api-token',
@@ -19,6 +20,7 @@ Download appcenter updates straight from your iOS or Android app.
 ```
 
 ### Use the manager to create your custom ui. Should be used as a repository/service
+Api Token should have read access only
 ```dart
 AppCenterReleaseManager(
   apiToken: 'your-api-token',
@@ -26,19 +28,24 @@ AppCenterReleaseManager(
 ```
 
 ### Install by url or release details:
+Api Token should have read access only
 ```dart
 final details = await AppCenterReleaseManager(apiToken: '').getLatestReleaseDetails('owner_name','app_name');
 AppCenterReleaseManager(apiToken: '').installRelease(details);                                                      
 ```
 
 Or by url
+Api Token should have read access only
 ```dart
 final details = await AppCenterReleaseManager(apiToken: '').getLatestReleaseDetails('owner_name','app_name');
 AppCenterReleaseManager(apiToken: '').installReleaseByUrl(details.installUrl, appName: 'your-app-name', appVersion: 'your-version'); //appName & appVersion will be used in the notification on android. On iOS this is never used                                                      
 ```
 
 ### Other available methods for the AppCenterReleaseManager:
+Api Token should have read access only
 ```dart
+AppCenterReleaseManager(apiToken: '').getUserDetails(); //global api token only
+
 AppCenterReleaseManager(apiToken: '').getAllOrganizations(); //global api token only
 
 AppCenterReleaseManager(apiToken: '').getAllApps(); //global api token only
