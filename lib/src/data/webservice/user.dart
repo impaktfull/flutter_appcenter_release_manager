@@ -40,7 +40,7 @@ class User {
     data['name'] = name;
     data['avatar_url'] = avatarUrl;
     data['can_change_password'] = canChangePassword;
-    data['created_at'] = createdAt;
+    data['created_at'] = createdAt?.toIso8601String();
     data['origin'] = origin;
     return data;
   }

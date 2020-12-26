@@ -35,7 +35,7 @@ class Release {
     data['id'] = id;
     data['short_version'] = shortVersion;
     data['version'] = version;
-    data['uploaded_at'] = uploadedAt;
+    data['uploaded_at'] = uploadedAt?.toIso8601String();
     data['enabled'] = enabled;
     data['is_external_build'] = isExternalBuild;
     return data;
