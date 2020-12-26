@@ -1,6 +1,8 @@
 library appcenter_release_manager;
 
 export 'src/appcenter_release_manager.dart';
+export 'src/data/exception/appcenter_api_error.dart';
+export 'src/data/exception/appcenter_no_access_api_error.dart';
 export 'src/data/exception/appcenter_release_manager_error.dart';
 export 'src/data/webservice/app.dart';
 export 'src/data/webservice/owner.dart';
