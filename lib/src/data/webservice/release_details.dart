@@ -95,7 +95,7 @@ class ReleaseDetail {
     data['device_family'] = deviceFamily;
     data['bundle_identifier'] = bundleIdentifier;
     data['fingerprint'] = fingerprint;
-    data['uploaded_at'] = uploadedAt;
+    data['uploaded_at'] = uploadedAt?.toIso8601String();
     data['download_url'] = downloadUrl;
     data['install_url'] = installUrl;
     data['enabled'] = enabled;

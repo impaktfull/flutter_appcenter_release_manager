@@ -1,3 +1,7 @@
+## 0.0.4
+Fixed:
+- json.encode would fail if DateTime was used in a toJson
+
 ## 0.0.3
 Added:
 - User Details
