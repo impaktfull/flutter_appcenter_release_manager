@@ -10,7 +10,7 @@ void main() {
   const endOfRecord = 'end_of_record';
   final sections = <LcovSection>[];
   final lines = file.readAsLinesSync();
-  LcovSection currentSection;
+  LcovSection? currentSection;
   lines.forEach((line) {
     if (line.endsWith('.dart')) {
       final filePath = line.replaceAll('SF:', '');
@@ -18,10 +18,13 @@ void main() {
         ..header = line
         ..filePath = filePath;
     } else if (line == endOfRecord) {
-      currentSection.footer = line;
-      sections.add(currentSection);
+      final section = currentSection;
+      if (section != null) {
+        section.footer = line;
+        sections.add(section);
+      }
     } else {
-      currentSection.body.add(line);
+      currentSection?.body.add(line);
     }
   });
   final filteredSections = getFilteredSections(sections);
@@ -34,13 +37,15 @@ void main() {
 }
 
 class LcovSection {
-  String filePath;
-  String header;
+  String? filePath;
+  String? header;
   final body = <String>[];
-  String footer;
+  String? footer;
 
   String getBodyString() {
-    final file = File(filePath);
+    final path = filePath;
+    if (path == null) throw ArgumentError('filpath should not be null');
+    final file = File(path);
     final content = file.readAsLinesSync();
     final sb = StringBuffer();
     getFilteredBody(body, content)
@@ -56,7 +61,7 @@ class LcovSection {
 
 List<LcovSection> getFilteredSections(List<LcovSection> sections) {
   return sections.where((section) {
-    if (section.header.endsWith('.g.dart')) {
+    if (section.header?.endsWith('.g.dart') == true) {
       return false;
     }
     return true;

@@ -9,24 +9,20 @@ import 'package:appcenter_release_manager/src/data/webservice/user.dart';
 import 'package:appcenter_release_manager/src/repo/appcenter_repo.dart';
 import 'package:appcenter_release_manager/src/repo/appcenter_repository.dart';
 import 'package:appcenter_release_manager/src/webservice/webservice.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppCenterReleaseManager {
   static const _channel = MethodChannel('appcenter_release_manager');
 
-  AppCenterRepo _releaseRepo;
+  late AppCenterRepo _releaseRepo;
 
   final String apiToken;
 
   AppCenterReleaseManager({
-    @required this.apiToken,
+    required this.apiToken,
   }) {
-    if (apiToken == null) {
-      throw AppCenterReleaseManagerError(message: 'apiToken is null');
-    } else if (apiToken.isEmpty) {
+    if (apiToken.isEmpty) {
       throw AppCenterReleaseManagerError(message: 'apiToken is empty');
     }
     _releaseRepo =
@@ -38,7 +34,7 @@ class AppCenterReleaseManager {
   Future<List<Owner>> getAllOrganizations() =>
       _releaseRepo.getAllOrganizations();
 
-  Future<List<App>> getAllApps({String ownerName}) =>
+  Future<List<App>> getAllApps({String? ownerName}) =>
       _releaseRepo.getAllApps(ownerName: ownerName);
 
   Future<List<Release>> getReleases(String ownerName, String appName) =>
@@ -48,7 +44,7 @@ class AppCenterReleaseManager {
           String ownerName, String appName, int id) =>
       _releaseRepo.getReleaseDetail(ownerName, appName, id);
 
-  Future<ReleaseDetail> getLatestReleaseDetails(
+  Future<ReleaseDetail?> getLatestReleaseDetails(
           String ownerName, String appName) =>
       _releaseRepo.getLatestReleaseDetail(ownerName, appName);
 
@@ -59,7 +55,7 @@ class AppCenterReleaseManager {
   }
 
   Future<void> installReleaseByUrl(String url,
-      {String appName, String appVersion}) async {
+      {required String appName, required String appVersion}) async {
     if (Platform.isIOS) {
       await launch(url);
       return;

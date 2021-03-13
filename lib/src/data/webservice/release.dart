@@ -1,22 +1,20 @@
-import 'package:flutter/cupertino.dart';
-
 class Release {
   final String origin;
   final int id;
   final String shortVersion;
   final String version;
-  final DateTime uploadedAt;
+  final DateTime? uploadedAt;
   final bool enabled;
   final bool isExternalBuild;
 
   Release({
-    @required this.origin,
-    @required this.id,
-    @required this.shortVersion,
-    @required this.version,
-    @required this.uploadedAt,
-    @required this.enabled,
-    @required this.isExternalBuild,
+    required this.origin,
+    required this.id,
+    required this.shortVersion,
+    required this.version,
+    required this.uploadedAt,
+    required this.enabled,
+    required this.isExternalBuild,
   });
 
   factory Release.fromJson(Map<String, dynamic> json) => Release(

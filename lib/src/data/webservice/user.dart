@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class User {
   final String id;
   final String displayName;
@@ -7,18 +5,18 @@ class User {
   final String name;
   final String avatarUrl;
   final bool canChangePassword;
-  final DateTime createdAt;
+  final DateTime? createdAt;
   final String origin;
 
   User({
-    @required this.id,
-    @required this.displayName,
-    @required this.email,
-    @required this.name,
-    @required this.avatarUrl,
-    @required this.canChangePassword,
-    @required this.createdAt,
-    @required this.origin,
+    required this.id,
+    required this.displayName,
+    required this.email,
+    required this.name,
+    required this.avatarUrl,
+    required this.canChangePassword,
+    required this.createdAt,
+    required this.origin,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
