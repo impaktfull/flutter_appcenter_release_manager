@@ -1,3 +1,7 @@
+## 1.0.0 - 2021-03-13
+Added:
+- Nullsafety
+
 ## 0.0.5 - 2020-12-26
 Added:
 - No access error so we can check if the api token is valid
