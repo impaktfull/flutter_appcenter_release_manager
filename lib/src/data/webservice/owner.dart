@@ -1,10 +1,10 @@
 class Owner {
   final String id;
-  final String avatarUrl;
+  final String? avatarUrl;
   final String displayName;
-  final String email;
+  final String? email;
   final String name;
-  final String type;
+  final String? type;
 
   Owner({
     required this.id,
@@ -17,11 +17,11 @@ class Owner {
 
   factory Owner.fromJson(Map<String, dynamic> json) => Owner(
         id: json['id'] as String,
-        avatarUrl: json['avatar_url'] as String,
+        avatarUrl: json['avatar_url'] as String?,
         displayName: json['display_name'] as String,
-        email: json['email'] as String,
+        email: json['email'] as String?,
         name: json['name'] as String,
-        type: json['type'] as String,
+        type: json['type'] as String?,
       );
 
   Map<String, dynamic> toJson() {

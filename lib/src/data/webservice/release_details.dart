@@ -10,17 +10,17 @@ class ReleaseDetail {
   final String shortVersion;
   final int size;
   final String minOs;
-  final String deviceFamily;
+  final String? deviceFamily;
   final String bundleIdentifier;
   final String fingerprint;
   final DateTime? uploadedAt;
   final String downloadUrl;
   final String installUrl;
   final bool enabled;
-  final String provisioningProfileType;
-  final String provisioningProfileExpiryDate;
-  final String provisioningProfileName;
-  final bool isProvisioningProfileSyncing;
+  final String? provisioningProfileType;
+  final String? provisioningProfileExpiryDate;
+  final String? provisioningProfileName;
+  final bool? isProvisioningProfileSyncing;
   final String releaseNotes;
 
   const ReleaseDetail({
@@ -61,19 +61,19 @@ class ReleaseDetail {
         shortVersion: json['short_version'] as String,
         size: json['size'] as int,
         minOs: json['min_os'] as String,
-        deviceFamily: json['device_family'] as String,
+        deviceFamily: json['device_family'] as String?,
         bundleIdentifier: json['bundle_identifier'] as String,
         fingerprint: json['fingerprint'] as String,
         uploadedAt: DateTime.parse(json['uploaded_at'] as String),
         downloadUrl: json['download_url'] as String,
         installUrl: json['install_url'] as String,
         enabled: json['enabled'] as bool,
-        provisioningProfileType: json['provisioning_profile_type'] as String,
+        provisioningProfileType: json['provisioning_profile_type'] as String?,
         provisioningProfileExpiryDate:
-            json['provisioning_profile_expiry_date'] as String,
-        provisioningProfileName: json['provisioning_profile_name'] as String,
+            json['provisioning_profile_expiry_date'] as String?,
+        provisioningProfileName: json['provisioning_profile_name'] as String?,
         isProvisioningProfileSyncing:
-            json['is_provisioning_profile_syncing'] as bool,
+            json['is_provisioning_profile_syncing'] as bool?,
         releaseNotes: json['release_notes'] as String,
       );
 

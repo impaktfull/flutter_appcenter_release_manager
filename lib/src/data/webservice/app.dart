@@ -3,16 +3,16 @@ import 'package:appcenter_release_manager/src/data/webservice/owner.dart';
 class App {
   final String id;
   final String appSecret;
-  final String description;
+  final String? description;
   final String displayName;
   final String name;
   final String os;
   final String platform;
   final String origin;
-  final String iconUrl;
+  final String? iconUrl;
   final String createdAt;
   final String updatedAt;
-  final String releaseType;
+  final String? releaseType;
   final Owner? owner;
 
   App({
@@ -34,16 +34,16 @@ class App {
   factory App.fromJson(Map<String, dynamic> json) => App(
         id: json['id'] as String,
         appSecret: json['app_secret'] as String,
-        description: json['description'] as String,
+        description: json['description'] as String?,
         displayName: json['display_name'] as String,
         name: json['name'] as String,
         os: json['os'] as String,
         platform: json['platform'] as String,
         origin: json['origin'] as String,
-        iconUrl: json['icon_url'] as String,
+        iconUrl: json['icon_url'] as String?,
         createdAt: json['created_at'] as String,
         updatedAt: json['updated_at'] as String,
-        releaseType: json['release_type'] as String,
+        releaseType: json['release_type'] as String?,
         owner: json['owner'] != null
             ? Owner.fromJson(json['owner'] as Map<String, dynamic>)
             : null,

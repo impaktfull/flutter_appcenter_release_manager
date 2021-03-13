@@ -17,7 +17,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var _index = 0;
 
-  AppCenterReleaseManager _appCenterReleaseManager;
+  late AppCenterReleaseManager _appCenterReleaseManager;
 
   @override
   void initState() {
@@ -70,7 +70,9 @@ class _MyAppState extends State<MyApp> {
 class OwnerList extends StatefulWidget {
   final AppCenterReleaseManager appCenterReleaseManager;
 
-  const OwnerList({@required this.appCenterReleaseManager});
+  const OwnerList({
+    required this.appCenterReleaseManager,
+  });
 
   @override
   _OwnerListState createState() => _OwnerListState();
@@ -102,7 +104,7 @@ class _OwnerListState extends State<OwnerList> {
             height: 64,
             padding: const EdgeInsets.all(4),
             child:
-                item.avatarUrl == null ? null : Image.network(item.avatarUrl),
+                item.avatarUrl == null ? null : Image.network(item.avatarUrl!),
           ),
           title: Text(item.name),
           onTap: () => Navigator.of(context).push<void>(
@@ -124,8 +126,8 @@ class OwnerAppList extends StatefulWidget {
   final Owner owner;
 
   const OwnerAppList({
-    @required this.appCenterReleaseManager,
-    @required this.owner,
+    required this.appCenterReleaseManager,
+    required this.owner,
   });
 
   @override
@@ -160,7 +162,7 @@ class _OwnerAppListState extends State<OwnerAppList> {
               width: 64,
               height: 64,
               padding: const EdgeInsets.all(4),
-              child: item.iconUrl == null ? null : Image.network(item.iconUrl),
+              child: item.iconUrl == null ? null : Image.network(item.iconUrl!),
             ),
             title: Text(item.name),
             onTap: () => Navigator.of(context).push<void>(
@@ -181,7 +183,9 @@ class _OwnerAppListState extends State<OwnerAppList> {
 class AppList extends StatefulWidget {
   final AppCenterReleaseManager appCenterReleaseManager;
 
-  const AppList({@required this.appCenterReleaseManager});
+  const AppList({
+    required this.appCenterReleaseManager,
+  });
 
   @override
   _AppListState createState() => _AppListState();
@@ -212,7 +216,7 @@ class _AppListState extends State<AppList> {
             width: 64,
             height: 64,
             padding: const EdgeInsets.all(4),
-            child: item.iconUrl == null ? null : Image.network(item.iconUrl),
+            child: item.iconUrl == null ? null : Image.network(item.iconUrl!),
           ),
           title: Text(item.name),
           onTap: () => Navigator.of(context).push<void>(
@@ -234,8 +238,8 @@ class AppDetail extends StatefulWidget {
   final App app;
 
   const AppDetail({
-    @required this.appCenterReleaseManager,
-    @required this.app,
+    required this.appCenterReleaseManager,
+    required this.app,
   });
 
   @override
@@ -252,8 +256,10 @@ class _AppDetailState extends State<AppDetail> {
   }
 
   Future<void> _getApps() async {
-    _list = await widget.appCenterReleaseManager
-        .getReleases(widget.app.owner.name, widget.app.name);
+    final name = widget.app.owner?.name;
+    if (name == null) return;
+    _list =
+        await widget.appCenterReleaseManager.getReleases(name, widget.app.name);
     setState(() {});
   }
 
@@ -267,7 +273,7 @@ class _AppDetailState extends State<AppDetail> {
           final item = _list[index];
           return ListTile(
             title: Text('${item.shortVersion} (${item.version})'),
-            subtitle: Text(item.uploadedAt.toIso8601String()),
+            subtitle: Text(item.uploadedAt?.toIso8601String() ?? ''),
             onTap: () => Navigator.of(context).push<void>(
               MaterialPageRoute(
                 builder: (context) => ReleaseDetailScreen(
@@ -290,9 +296,9 @@ class ReleaseDetailScreen extends StatefulWidget {
   final Release release;
 
   const ReleaseDetailScreen({
-    @required this.appCenterReleaseManager,
-    @required this.app,
-    @required this.release,
+    required this.appCenterReleaseManager,
+    required this.app,
+    required this.release,
   });
 
   @override
@@ -300,7 +306,7 @@ class ReleaseDetailScreen extends StatefulWidget {
 }
 
 class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
-  ReleaseDetail _details;
+  ReleaseDetail? _details;
 
   @override
   void initState() {
@@ -309,8 +315,10 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
   }
 
   Future<void> _getApps() async {
-    _details = await widget.appCenterReleaseManager.getReleaseDetails(
-        widget.app.owner.name, widget.app.name, widget.release.id);
+    final name = widget.app.owner?.name;
+    if (name == null) return;
+    _details = await widget.appCenterReleaseManager
+        .getReleaseDetails(name, widget.app.name, widget.release.id);
     setState(() {});
   }
 
@@ -323,8 +331,8 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
         children: _details == null
             ? []
             : [
-                Text(_details.uploadedAt.toIso8601String()),
-                Text('${_details.shortVersion} (${_details.version})'),
+                Text(_details!.uploadedAt?.toIso8601String() ?? ''),
+                Text('${_details!.shortVersion} (${_details!.version})'),
                 MaterialButton(
                   child: const Text(
                     'Install',
@@ -332,7 +340,7 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
                   ),
                   color: Colors.blue,
                   onPressed: () =>
-                      widget.appCenterReleaseManager.installRelease(_details),
+                      widget.appCenterReleaseManager.installRelease(_details!),
                 ),
               ],
       ),
