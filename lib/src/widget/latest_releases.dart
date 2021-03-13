@@ -12,33 +12,30 @@ class AppCenterReleaseManagerLatestReleases extends StatefulWidget {
   final bool showLogs;
 
   const AppCenterReleaseManagerLatestReleases({
-    @required this.apiToken,
-    @required this.ownerName,
-    @required this.appName,
+    required this.apiToken,
+    required this.ownerName,
+    required this.appName,
     this.showLogs = false,
-  }) : assert(showLogs != null);
+  });
 
   @override
-  _AppCenterReleaseManagerLatestReleasesState createState() =>
-      _AppCenterReleaseManagerLatestReleasesState();
+  _AppCenterReleaseManagerLatestReleasesState createState() => _AppCenterReleaseManagerLatestReleasesState();
 }
 
-class _AppCenterReleaseManagerLatestReleasesState
-    extends State<AppCenterReleaseManagerLatestReleases> {
-  AppCenterReleaseManager _appCenterReleaseManager;
+class _AppCenterReleaseManagerLatestReleasesState extends State<AppCenterReleaseManagerLatestReleases> {
+  AppCenterReleaseManager? _appCenterReleaseManager;
   var _loading = false;
   var isLoadingDownload = false;
   var _error = false;
 
   final _releases = <Release>[];
-  Release _selectedItem;
-  ReleaseDetail _releaseDetail;
+  Release? _selectedItem;
+  ReleaseDetail? _releaseDetail;
 
   @override
   void initState() {
     super.initState();
-    _appCenterReleaseManager =
-        AppCenterReleaseManager(apiToken: widget.apiToken);
+    _appCenterReleaseManager = AppCenterReleaseManager(apiToken: widget.apiToken);
     _getData();
   }
 
@@ -48,6 +45,7 @@ class _AppCenterReleaseManagerLatestReleasesState
       onRefresh: _onRefresh,
       child: LayoutBuilder(
         builder: (context, constraints) {
+          final releaseDetail = _releaseDetail;
           if (_loading) return const Center(child: CircularProgressIndicator());
           final theme = Theme.of(context);
           if (_error) {
@@ -73,7 +71,7 @@ class _AppCenterReleaseManagerLatestReleasesState
               ],
             );
           }
-          if (_releaseDetail != null) {
+          if (releaseDetail != null) {
             return ListView(
               padding: const EdgeInsets.all(16),
               children: [
@@ -81,14 +79,14 @@ class _AppCenterReleaseManagerLatestReleasesState
                   children: [
                     Expanded(
                       child: Text(
-                        '${_releaseDetail.shortVersion} (${_releaseDetail.version})',
+                        '${releaseDetail.shortVersion} (${releaseDetail.version})',
                         style: theme.textTheme.headline6,
                       ),
                     ),
                     IconButton(
                       icon: Icon(
                         Icons.close,
-                        color: theme.textTheme.subtitle2.color,
+                        color: theme.textTheme.subtitle2?.color,
                       ),
                       onPressed: _onCloseClicked,
                     ),
@@ -96,31 +94,27 @@ class _AppCenterReleaseManagerLatestReleasesState
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  DateTimeFormatter.format(_releaseDetail.uploadedAt),
-                  style: theme.textTheme.subtitle2
-                      .copyWith(fontWeight: FontWeight.normal),
+                  DateTimeFormatter.format(releaseDetail.uploadedAt),
+                  style: theme.textTheme.subtitle2?.copyWith(fontWeight: FontWeight.normal),
                 ),
                 const SizedBox(height: 16),
                 MaterialButton(
                   child: Text(
                     isLoadingDownload ? 'Downloading...' : 'Download',
-                    style: theme.accentTextTheme.bodyText1.copyWith(
-                      color: theme.accentColorBrightness == Brightness.light
-                          ? Colors.white
-                          : Colors.black,
+                    style: theme.accentTextTheme.bodyText1?.copyWith(
+                      color: theme.accentColorBrightness == Brightness.light ? Colors.white : Colors.black,
                     ),
                   ),
                   color: theme.accentColor,
                   onPressed: () async {
                     setState(() => isLoadingDownload = true);
-                    await _appCenterReleaseManager
-                        .installRelease(_releaseDetail);
+                    await _appCenterReleaseManager!.installRelease(releaseDetail);
                     setState(() => isLoadingDownload = false);
                   },
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  _releaseDetail.releaseNotes,
+                  releaseDetail.releaseNotes,
                   style: theme.textTheme.caption,
                 ),
               ],
@@ -153,8 +147,7 @@ class _AppCenterReleaseManagerLatestReleasesState
       _loading = _releases.isEmpty;
       _error = false;
       setState(() {});
-      final data = await _appCenterReleaseManager.getReleases(
-          widget.ownerName, widget.appName);
+      final data = await _appCenterReleaseManager!.getReleases(widget.ownerName, widget.appName);
       _releases
         ..clear()
         ..addAll(data);
@@ -178,12 +171,13 @@ class _AppCenterReleaseManagerLatestReleasesState
   }
 
   Future<void> _getReleaseDetails() async {
+    final selectedItem = _selectedItem;
+    if (selectedItem == null) return;
     try {
       _loading = _releaseDetail == null;
       _error = false;
       setState(() {});
-      _releaseDetail = await _appCenterReleaseManager.getReleaseDetails(
-          widget.ownerName, widget.appName, _selectedItem.id);
+      _releaseDetail = await _appCenterReleaseManager!.getReleaseDetails(widget.ownerName, widget.appName, selectedItem.id);
     } catch (e) {
       if (widget.showLogs) print(e); // ignore: avoid_print
       _error = true;

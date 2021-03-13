@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class ReleaseDetail {
   final String appName;
   final String appDisplayName;
@@ -15,7 +13,7 @@ class ReleaseDetail {
   final String deviceFamily;
   final String bundleIdentifier;
   final String fingerprint;
-  final DateTime uploadedAt;
+  final DateTime? uploadedAt;
   final String downloadUrl;
   final String installUrl;
   final bool enabled;
@@ -26,29 +24,29 @@ class ReleaseDetail {
   final String releaseNotes;
 
   const ReleaseDetail({
-    @required this.appName,
-    @required this.appDisplayName,
-    @required this.appOs,
-    @required this.appIconUrl,
-    @required this.isExternalBuild,
-    @required this.origin,
-    @required this.id,
-    @required this.version,
-    @required this.shortVersion,
-    @required this.size,
-    @required this.minOs,
-    @required this.deviceFamily,
-    @required this.bundleIdentifier,
-    @required this.fingerprint,
-    @required this.uploadedAt,
-    @required this.downloadUrl,
-    @required this.installUrl,
-    @required this.enabled,
-    @required this.provisioningProfileType,
-    @required this.provisioningProfileExpiryDate,
-    @required this.provisioningProfileName,
-    @required this.isProvisioningProfileSyncing,
-    @required this.releaseNotes,
+    required this.appName,
+    required this.appDisplayName,
+    required this.appOs,
+    required this.appIconUrl,
+    required this.isExternalBuild,
+    required this.origin,
+    required this.id,
+    required this.version,
+    required this.shortVersion,
+    required this.size,
+    required this.minOs,
+    required this.deviceFamily,
+    required this.bundleIdentifier,
+    required this.fingerprint,
+    required this.uploadedAt,
+    required this.downloadUrl,
+    required this.installUrl,
+    required this.enabled,
+    required this.provisioningProfileType,
+    required this.provisioningProfileExpiryDate,
+    required this.provisioningProfileName,
+    required this.isProvisioningProfileSyncing,
+    required this.releaseNotes,
   });
 
   factory ReleaseDetail.fromJson(Map<String, dynamic> json) => ReleaseDetail(

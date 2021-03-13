@@ -6,13 +6,14 @@ class Owner {
   final String name;
   final String type;
 
-  Owner(
-      {this.id,
-      this.avatarUrl,
-      this.displayName,
-      this.email,
-      this.name,
-      this.type});
+  Owner({
+    required this.id,
+    required this.avatarUrl,
+    required this.displayName,
+    required this.email,
+    required this.name,
+    required this.type,
+  });
 
   factory Owner.fromJson(Map<String, dynamic> json) => Owner(
         id: json['id'] as String,

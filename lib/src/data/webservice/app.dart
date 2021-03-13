@@ -1,5 +1,4 @@
 import 'package:appcenter_release_manager/src/data/webservice/owner.dart';
-import 'package:flutter/material.dart';
 
 class App {
   final String id;
@@ -14,22 +13,22 @@ class App {
   final String createdAt;
   final String updatedAt;
   final String releaseType;
-  final Owner owner;
+  final Owner? owner;
 
   App({
-    @required this.id,
-    @required this.appSecret,
-    @required this.description,
-    @required this.displayName,
-    @required this.name,
-    @required this.os,
-    @required this.platform,
-    @required this.origin,
-    @required this.iconUrl,
-    @required this.createdAt,
-    @required this.updatedAt,
-    @required this.releaseType,
-    @required this.owner,
+    required this.id,
+    required this.appSecret,
+    required this.description,
+    required this.displayName,
+    required this.name,
+    required this.os,
+    required this.platform,
+    required this.origin,
+    required this.iconUrl,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.releaseType,
+    required this.owner,
   });
 
   factory App.fromJson(Map<String, dynamic> json) => App(
@@ -65,7 +64,7 @@ class App {
     data['updated_at'] = updatedAt;
     data['release_type'] = releaseType;
     if (owner != null) {
-      data['owner'] = owner.toJson();
+      data['owner'] = owner?.toJson();
     }
     return data;
   }

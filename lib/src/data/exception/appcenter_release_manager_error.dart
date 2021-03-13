@@ -1,11 +1,12 @@
 class AppCenterReleaseManagerError extends Error {
-  final String message;
+  final String? message;
 
   AppCenterReleaseManagerError({this.message});
 
   @override
   String toString() {
-    if (message != null && message.isNotEmpty) {
+    final msg = message;
+    if (msg != null && msg.isNotEmpty) {
       return 'AppCenter Release Manager Error with message:\n\n'
           '------------------------\n\n'
           '$message\n\n'

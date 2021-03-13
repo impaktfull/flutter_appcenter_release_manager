@@ -6,13 +6,12 @@ import 'package:appcenter_release_manager/src/data/webservice/release_details.da
 import 'package:appcenter_release_manager/src/data/webservice/user.dart';
 import 'package:appcenter_release_manager/src/repo/appcenter_repo.dart';
 import 'package:appcenter_release_manager/src/webservice/webservice.dart';
-import 'package:flutter/material.dart';
 
 class AppCenterRepository extends AppCenterRepo {
   final Webservice webservice;
 
   AppCenterRepository({
-    @required this.webservice,
+    required this.webservice,
   });
 
   @override
@@ -24,51 +23,44 @@ class AppCenterRepository extends AppCenterRepo {
   @override
   Future<List<Owner>> getAllOrganizations() async {
     final data = await webservice.get<List<dynamic>>('/v0.1/orgs');
-    return data
-        .map((dynamic e) => Owner.fromJson(e as Map<String, dynamic>))
-        .toList();
+    return data.map((dynamic e) => Owner.fromJson(e as Map<String, dynamic>)).toList();
   }
 
   @override
-  Future<List<App>> getAllApps({String ownerName}) async {
+  Future<List<App>> getAllApps({String? ownerName}) async {
     List<dynamic> data;
     if (ownerName == null) {
       data = await webservice.get<List<dynamic>>('/v0.1/apps');
     } else {
       data = await webservice.get<List<dynamic>>('/v0.1/orgs/$ownerName/apps');
     }
-    return data
-        .map((dynamic e) => App.fromJson(e as Map<String, dynamic>))
-        .toList();
+    return data.map((dynamic e) => App.fromJson(e as Map<String, dynamic>)).toList();
   }
 
   @override
   Future<List<Release>> getReleases(String ownerName, String appName) async {
-    final data = await webservice
-        .get<List<dynamic>>('/v0.1/apps/$ownerName/$appName/releases');
-    return data
-        .map((dynamic e) => Release.fromJson(e as Map<String, dynamic>))
-        .toList();
+    final data = await webservice.get<List<dynamic>>('/v0.1/apps/$ownerName/$appName/releases');
+    return data.map((dynamic e) => Release.fromJson(e as Map<String, dynamic>)).toList();
   }
 
   @override
-  Future<ReleaseDetail> getReleaseDetail(
-      String ownerName, String appName, int id) async {
-    final data = await webservice.get<Map<String, dynamic>>(
-        '/v0.1/apps/$ownerName/$appName/releases/$id');
+  Future<ReleaseDetail> getReleaseDetail(String ownerName, String appName, int id) async {
+    final data = await webservice.get<Map<String, dynamic>>('/v0.1/apps/$ownerName/$appName/releases/$id');
     return ReleaseDetail.fromJson(data);
   }
 
   @override
-  Future<ReleaseDetail> getLatestReleaseDetail(
-      String ownerName, String appName) async {
-    final data = await webservice
-        .get<List<dynamic>>('/v0.1/apps/$ownerName/$appName/recent_releases');
-    final list = data
-        .map((dynamic e) => Release.fromJson(e as Map<String, dynamic>))
-        .toList();
+  Future<ReleaseDetail?> getLatestReleaseDetail(String ownerName, String appName) async {
+    final data = await webservice.get<List<dynamic>>('/v0.1/apps/$ownerName/$appName/recent_releases');
+    final list = data.map((dynamic e) => Release.fromJson(e as Map<String, dynamic>)).toList();
     if (list.isEmpty) return null;
-    list.sort((a, b) => b.uploadedAt.compareTo(a.uploadedAt));
+    list
+      ..removeWhere((element) => element.uploadedAt == null)
+      ..sort((a, b) {
+        if (a.uploadedAt == null) return 0;
+        if (b.uploadedAt == null) return 0;
+        return b.uploadedAt!.compareTo(a.uploadedAt!);
+      });
     return getReleaseDetail(ownerName, appName, list.first.id);
   }
 }
