@@ -3,7 +3,7 @@ class User {
   final String displayName;
   final String email;
   final String name;
-  final String avatarUrl;
+  final String? avatarUrl;
   final bool canChangePassword;
   final DateTime? createdAt;
   final String origin;
@@ -24,7 +24,7 @@ class User {
         displayName: json['display_name'] as String,
         email: json['email'] as String,
         name: json['name'] as String,
-        avatarUrl: json['avatar_url'] as String,
+        avatarUrl: json['avatar_url'] as String?,
         canChangePassword: json['can_change_password'] as bool,
         createdAt: DateTime.parse(json['created_at'] as String),
         origin: json['origin'] as String,

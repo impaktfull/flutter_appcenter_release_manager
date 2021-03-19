@@ -1,7 +1,7 @@
 import 'package:appcenter_release_manager/appcenter_release_manager.dart';
 import 'package:flutter/material.dart';
 
-const API_TOKEN = '';
+const API_TOKEN = '743fdfed7e42ff20064529f146db7b7e06b7b26a';
 const PRE_DEFINED_OWNER_NAME = '';
 const PRE_DEFINED_APP_NAME = '';
 
@@ -42,14 +42,17 @@ class _MyAppState extends State<MyApp> {
               ownerName: PRE_DEFINED_OWNER_NAME,
               appName: PRE_DEFINED_APP_NAME,
             ),
+            UserDetails(appCenterReleaseManager: _appCenterReleaseManager),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _index,
           onTap: (value) => setState(() => _index = value),
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.grey,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: Icon(Icons.group),
               label: 'Owners',
             ),
             BottomNavigationBarItem(
@@ -60,10 +63,55 @@ class _MyAppState extends State<MyApp> {
               icon: Icon(Icons.description),
               label: 'Package',
             ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'User Details',
+            ),
           ],
         ),
       ),
     );
+  }
+}
+
+class UserDetails extends StatefulWidget {
+  final AppCenterReleaseManager appCenterReleaseManager;
+
+  const UserDetails({
+    required this.appCenterReleaseManager,
+  });
+
+  @override
+  _UserDetailsState createState() => _UserDetailsState();
+}
+
+class _UserDetailsState extends State<UserDetails> {
+  User? _user;
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserDetails();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        Text(_user?.name ?? 'null'),
+        Text(_user?.displayName ?? 'null'),
+        Text(_user?.origin ?? 'null'),
+        Text(_user?.avatarUrl ?? 'null'),
+        Text(_user?.createdAt?.toIso8601String() ?? 'null'),
+        Text(_user?.canChangePassword.toString() ?? 'null'),
+      ],
+    );
+  }
+
+  Future<void> _getUserDetails() async {
+    _user = await widget.appCenterReleaseManager.getUserDetails();
+    setState(() {});
   }
 }
 
