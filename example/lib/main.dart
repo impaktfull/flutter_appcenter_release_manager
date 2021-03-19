@@ -1,7 +1,7 @@
 import 'package:appcenter_release_manager/appcenter_release_manager.dart';
 import 'package:flutter/material.dart';
 
-const API_TOKEN = '';
+const API_TOKEN = '743fdfed7e42ff20064529f146db7b7e06b7b26a';
 const PRE_DEFINED_OWNER_NAME = '';
 const PRE_DEFINED_APP_NAME = '';
 
@@ -42,14 +42,17 @@ class _MyAppState extends State<MyApp> {
               ownerName: PRE_DEFINED_OWNER_NAME,
               appName: PRE_DEFINED_APP_NAME,
             ),
+            UserDetails(appCenterReleaseManager: _appCenterReleaseManager),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _index,
           onTap: (value) => setState(() => _index = value),
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.grey,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: Icon(Icons.group),
               label: 'Owners',
             ),
             BottomNavigationBarItem(
@@ -60,10 +63,55 @@ class _MyAppState extends State<MyApp> {
               icon: Icon(Icons.description),
               label: 'Package',
             ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'User Details',
+            ),
           ],
         ),
       ),
     );
+  }
+}
+
+class UserDetails extends StatefulWidget {
+  final AppCenterReleaseManager appCenterReleaseManager;
+
+  const UserDetails({
+    required this.appCenterReleaseManager,
+  });
+
+  @override
+  _UserDetailsState createState() => _UserDetailsState();
+}
+
+class _UserDetailsState extends State<UserDetails> {
+  User? _user;
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserDetails();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        Text(_user?.name ?? 'null'),
+        Text(_user?.displayName ?? 'null'),
+        Text(_user?.origin ?? 'null'),
+        Text(_user?.avatarUrl ?? 'null'),
+        Text(_user?.createdAt?.toIso8601String() ?? 'null'),
+        Text(_user?.canChangePassword.toString() ?? 'null'),
+      ],
+    );
+  }
+
+  Future<void> _getUserDetails() async {
+    _user = await widget.appCenterReleaseManager.getUserDetails();
+    setState(() {});
   }
 }
 
@@ -103,8 +151,7 @@ class _OwnerListState extends State<OwnerList> {
             width: 64,
             height: 64,
             padding: const EdgeInsets.all(4),
-            child:
-                item.avatarUrl == null ? null : Image.network(item.avatarUrl!),
+            child: item.avatarUrl == null ? null : Image.network(item.avatarUrl!),
           ),
           title: Text(item.name),
           onTap: () => Navigator.of(context).push<void>(
@@ -144,8 +191,7 @@ class _OwnerAppListState extends State<OwnerAppList> {
   }
 
   Future<void> _getApps() async {
-    _list = await widget.appCenterReleaseManager
-        .getAllApps(ownerName: widget.owner.name);
+    _list = await widget.appCenterReleaseManager.getAllApps(ownerName: widget.owner.name);
     setState(() {});
   }
 
@@ -258,8 +304,7 @@ class _AppDetailState extends State<AppDetail> {
   Future<void> _getApps() async {
     final name = widget.app.owner?.name;
     if (name == null) return;
-    _list =
-        await widget.appCenterReleaseManager.getReleases(name, widget.app.name);
+    _list = await widget.appCenterReleaseManager.getReleases(name, widget.app.name);
     setState(() {});
   }
 
@@ -317,8 +362,7 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
   Future<void> _getApps() async {
     final name = widget.app.owner?.name;
     if (name == null) return;
-    _details = await widget.appCenterReleaseManager
-        .getReleaseDetails(name, widget.app.name, widget.release.id);
+    _details = await widget.appCenterReleaseManager.getReleaseDetails(name, widget.app.name, widget.release.id);
     setState(() {});
   }
 
@@ -339,8 +383,7 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
                     style: TextStyle(color: Colors.white),
                   ),
                   color: Colors.blue,
-                  onPressed: () =>
-                      widget.appCenterReleaseManager.installRelease(_details!),
+                  onPressed: () => widget.appCenterReleaseManager.installRelease(_details!),
                 ),
               ],
       ),

@@ -1,3 +1,7 @@
+## 1.0.1 - 2021-03-19
+Fixed:
+- crash when fetching user details with null avatarurl
+
 ## 1.0.0 - 2021-03-13
 Added:
 - Nullsafety
