@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
+          brightness: Brightness.dark,
           title: const Text('Plugin example app'),
         ),
         body: IndexedStack(
@@ -200,7 +201,10 @@ class _OwnerAppListState extends State<OwnerAppList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.owner.name)),
+      appBar: AppBar(
+        brightness: Brightness.dark,
+        title: Text(widget.owner.name),
+      ),
       body: ListView.builder(
         itemCount: _list.length,
         itemBuilder: (context, index) {
@@ -314,7 +318,10 @@ class _AppDetailState extends State<AppDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.app.name)),
+      appBar: AppBar(
+        brightness: Brightness.dark,
+        title: Text(widget.app.name),
+      ),
       body: ListView.builder(
         itemCount: _list.length,
         itemBuilder: (context, index) {
@@ -373,7 +380,10 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.app.name)),
+      appBar: AppBar(
+        brightness: Brightness.dark,
+        title: Text(widget.app.name),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: _details == null
