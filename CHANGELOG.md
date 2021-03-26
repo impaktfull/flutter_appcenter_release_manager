@@ -1,6 +1,7 @@
 ## 2.0.0 - 2021-03-26
 Breaking:
 - #18
+
 `/v0.1/apps` -> `/v0.1/tester/apps`
 
 `/v0.1/apps/{owner_name}/{app_name}/releases` -> `/v0.1/apps/{owner_name}/{app_name}/releases?scope=testers`
