@@ -1,7 +1,7 @@
 import 'package:appcenter_release_manager/appcenter_release_manager.dart';
 import 'package:flutter/material.dart';
 
-const API_TOKEN = '743fdfed7e42ff20064529f146db7b7e06b7b26a';
+const API_TOKEN = '';
 const PRE_DEFINED_OWNER_NAME = '';
 const PRE_DEFINED_APP_NAME = '';
 
