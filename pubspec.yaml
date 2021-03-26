@@ -1,7 +1,7 @@
 name: appcenter_release_manager
 description: Download appcenter updates straight from your iOS or Android app.
 homepage: https://github.com/vanlooverenkoen/flutter_appcenter_release_manager
-version: 1.0.1
+version: 2.0.0
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.0
+  http: ^0.13.1
   url_launcher: ^6.0.2
 
 dev_dependencies:

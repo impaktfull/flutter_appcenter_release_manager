@@ -32,7 +32,7 @@ class AppCenterRepository extends AppCenterRepo {
   Future<List<App>> getAllApps({String? ownerName}) async {
     List<dynamic> data;
     if (ownerName == null) {
-      data = await webservice.get<List<dynamic>>('/v0.1/apps');
+      data = await webservice.get<List<dynamic>>('/v0.1/tester/apps');
     } else {
       data = await webservice.get<List<dynamic>>('/v0.1/orgs/$ownerName/apps');
     }
@@ -43,8 +43,8 @@ class AppCenterRepository extends AppCenterRepo {
 
   @override
   Future<List<Release>> getReleases(String ownerName, String appName) async {
-    final data = await webservice
-        .get<List<dynamic>>('/v0.1/apps/$ownerName/$appName/releases');
+    final data = await webservice.get<List<dynamic>>(
+        '/v0.1/apps/$ownerName/$appName/releases?scope=tester');
     return data
         .map((dynamic e) => Release.fromJson(e as Map<String, dynamic>))
         .toList();
