@@ -15,7 +15,9 @@ jobs:
       with:
         channel: 'stable'
     - run: flutter packages get
-    - run: dart run ./tool/travis/test_coverage_helper.dart
+    - run: dart run ./tool/coverage/test_coverage_helper.dart
     - run: flutter test --coverage
+    - run: dart run ./tool/coverage/filter_test_coverage.dart
+    - run: dart run ./tool/coverage/filter_test_coverage.dart
     - run: coveralls-lcov coverage/lcov.info
 
