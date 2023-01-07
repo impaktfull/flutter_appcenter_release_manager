@@ -2,9 +2,9 @@ import 'package:appcenter_release_manager/appcenter_release_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-const apiToken = 'c7d589abe224a908cd69096b78b62b34e6b637f5';
-const preDefinedOwnerName = 'vanlooverenkoen-personal';
-const preDefinedAppName = 'App-Center-Android';
+const apiToken = '';
+const preDefinedOwnerName = '';
+const preDefinedAppName = '';
 
 void main() {
   runApp(const MyApp());
