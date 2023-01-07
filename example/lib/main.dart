@@ -159,7 +159,9 @@ class _OwnerListState extends State<OwnerList> {
             width: 64,
             height: 64,
             padding: const EdgeInsets.all(4),
-            child: item.avatarUrl == null ? const Placeholder() : Image.network(item.avatarUrl!),
+            child: item.avatarUrl == null
+                ? const Placeholder()
+                : Image.network(item.avatarUrl!),
           ),
           title: Text(item.name),
           onTap: () => Navigator.of(context).push<void>(
@@ -200,7 +202,8 @@ class _OwnerAppListState extends State<OwnerAppList> {
   }
 
   Future<void> _getApps() async {
-    _list = await widget.appCenterReleaseManager.getAllApps(ownerName: widget.owner.name);
+    _list = await widget.appCenterReleaseManager
+        .getAllApps(ownerName: widget.owner.name);
     setState(() {});
   }
 
@@ -220,7 +223,9 @@ class _OwnerAppListState extends State<OwnerAppList> {
               width: 64,
               height: 64,
               padding: const EdgeInsets.all(4),
-              child: item.iconUrl == null ? const Placeholder() : Image.network(item.iconUrl!),
+              child: item.iconUrl == null
+                  ? const Placeholder()
+                  : Image.network(item.iconUrl!),
             ),
             title: Text(item.name),
             onTap: () => Navigator.of(context).push<void>(
@@ -275,7 +280,9 @@ class _AppListState extends State<AppList> {
             width: 64,
             height: 64,
             padding: const EdgeInsets.all(4),
-            child: item.iconUrl == null ? const Placeholder() : Image.network(item.iconUrl!),
+            child: item.iconUrl == null
+                ? const Placeholder()
+                : Image.network(item.iconUrl!),
           ),
           title: Text(item.name),
           onTap: () => Navigator.of(context).push<void>(
@@ -318,7 +325,8 @@ class _AppDetailState extends State<AppDetail> {
   Future<void> _getApps() async {
     final name = widget.app.owner?.name;
     if (name == null) return;
-    _list = await widget.appCenterReleaseManager.getReleases(name, widget.app.name);
+    _list =
+        await widget.appCenterReleaseManager.getReleases(name, widget.app.name);
     setState(() {});
   }
 
@@ -380,7 +388,8 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
   Future<void> _getApps() async {
     final name = widget.app.owner?.name;
     if (name == null) return;
-    _details = await widget.appCenterReleaseManager.getReleaseDetails(name, widget.app.name, widget.release.id);
+    _details = await widget.appCenterReleaseManager
+        .getReleaseDetails(name, widget.app.name, widget.release.id);
     setState(() {});
   }
 
@@ -400,7 +409,8 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
                 Text('${_details!.shortVersion} (${_details!.version})'),
                 MaterialButton(
                   color: Colors.blue,
-                  onPressed: () => widget.appCenterReleaseManager.installRelease(_details!),
+                  onPressed: () =>
+                      widget.appCenterReleaseManager.installRelease(_details!),
                   child: const Text(
                     'Install',
                     style: TextStyle(color: Colors.white),

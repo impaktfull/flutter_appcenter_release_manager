@@ -19,10 +19,12 @@ class AppCenterReleaseManagerLatestReleases extends StatefulWidget {
   });
 
   @override
-  State<AppCenterReleaseManagerLatestReleases> createState() => _AppCenterReleaseManagerLatestReleasesState();
+  State<AppCenterReleaseManagerLatestReleases> createState() =>
+      _AppCenterReleaseManagerLatestReleasesState();
 }
 
-class _AppCenterReleaseManagerLatestReleasesState extends State<AppCenterReleaseManagerLatestReleases> {
+class _AppCenterReleaseManagerLatestReleasesState
+    extends State<AppCenterReleaseManagerLatestReleases> {
   AppCenterReleaseManager? _appCenterReleaseManager;
   var _loading = false;
   var isLoadingDownload = false;
@@ -35,7 +37,8 @@ class _AppCenterReleaseManagerLatestReleasesState extends State<AppCenterRelease
   @override
   void initState() {
     super.initState();
-    _appCenterReleaseManager = AppCenterReleaseManager(apiToken: widget.apiToken);
+    _appCenterReleaseManager =
+        AppCenterReleaseManager(apiToken: widget.apiToken);
     _getData();
   }
 
@@ -95,20 +98,24 @@ class _AppCenterReleaseManagerLatestReleasesState extends State<AppCenterRelease
                 const SizedBox(height: 8),
                 Text(
                   DateTimeFormatter.format(releaseDetail.uploadedAt),
-                  style: theme.textTheme.subtitle2?.copyWith(fontWeight: FontWeight.normal),
+                  style: theme.textTheme.subtitle2
+                      ?.copyWith(fontWeight: FontWeight.normal),
                 ),
                 const SizedBox(height: 16),
                 MaterialButton(
                   color: theme.colorScheme.secondary,
                   onPressed: () async {
                     setState(() => isLoadingDownload = true);
-                    await _appCenterReleaseManager!.installRelease(releaseDetail);
+                    await _appCenterReleaseManager!
+                        .installRelease(releaseDetail);
                     setState(() => isLoadingDownload = false);
                   },
                   child: Text(
                     isLoadingDownload ? 'Downloading...' : 'Download',
                     style: theme.textTheme.bodyText1?.copyWith(
-                      color: theme.brightness == Brightness.light ? Colors.white : Colors.black,
+                      color: theme.brightness == Brightness.light
+                          ? Colors.white
+                          : Colors.black,
                     ),
                   ),
                 ),
@@ -147,7 +154,8 @@ class _AppCenterReleaseManagerLatestReleasesState extends State<AppCenterRelease
       _loading = _releases.isEmpty;
       _error = false;
       setState(() {});
-      final data = await _appCenterReleaseManager!.getReleases(widget.ownerName, widget.appName);
+      final data = await _appCenterReleaseManager!
+          .getReleases(widget.ownerName, widget.appName);
       _releases
         ..clear()
         ..addAll(data);
@@ -177,7 +185,8 @@ class _AppCenterReleaseManagerLatestReleasesState extends State<AppCenterRelease
       _loading = _releaseDetail == null;
       _error = false;
       setState(() {});
-      _releaseDetail = await _appCenterReleaseManager!.getReleaseDetails(widget.ownerName, widget.appName, selectedItem.id);
+      _releaseDetail = await _appCenterReleaseManager!
+          .getReleaseDetails(widget.ownerName, widget.appName, selectedItem.id);
     } catch (e) {
       if (widget.showLogs) print(e); // ignore: avoid_print
       _error = true;
