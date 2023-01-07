@@ -20,8 +20,11 @@ void main(List<String> args) {
     }
   }
   final codeCoveragePercentage = (totalLinesCovered / totalLines) * 100;
-  if (codeCoveragePercentage >= minRequiredCoverage) {
+  if (codeCoveragePercentage == 100) {
     printMessage('\n100% CODE COVERAGE!!!!\n');
+  } else if (codeCoveragePercentage >= minRequiredCoverage) {
+    printMessage('COVERAGE IS ${codeCoveragePercentage.toStringAsFixed(2)}%\n');
+    printMessage('TIS IS ABOVE THE MIN REQUIRED TARGET of $minRequiredCoverage%\n');
   } else {
     printMessage('\nCODE COVERAGE IS TO LOW!!\n');
     printMessage('COVERAGE IS ${codeCoveragePercentage.toStringAsFixed(2)}%\n');
