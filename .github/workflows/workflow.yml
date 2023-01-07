@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Flutter action
       - uses: subosito/flutter-action@v2.8.0
-      - name: Install dependencies
-        run: flutter packages get
-      - name: Analyze
-        run: flutter analyze
+        with:
+          channel: 'stable'
+      - run: flutter packages get
+      - run: flutter analyze
