@@ -1,0 +1,22 @@
+name: Dart
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: subosito/flutter-action@v2.8.0
+      with:
+        channel: 'stable'
+    - run: gem install coveralls-lcov
+    - run: flutter packages get
+    - run: dart run ./tool/travis/test_coverage_helper.dart
+    - run: flutter test --coverage
+    - run: coveralls-lcov coverage/lcov.info
+
