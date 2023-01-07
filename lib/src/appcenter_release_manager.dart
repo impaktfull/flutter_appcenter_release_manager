@@ -57,7 +57,7 @@ class AppCenterReleaseManager {
   Future<void> installReleaseByUrl(String url,
       {required String appName, required String appVersion}) async {
     if (Platform.isIOS) {
-      await launch(url);
+      await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
       return;
     }
     final data = <String, dynamic>{};

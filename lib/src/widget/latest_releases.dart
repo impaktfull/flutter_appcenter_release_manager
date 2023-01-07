@@ -1,9 +1,8 @@
-import 'package:appcenter_release_manager/appcenter_release_manager.dart';
 import 'package:appcenter_release_manager/src/appcenter_release_manager.dart';
 import 'package:appcenter_release_manager/src/data/webservice/release.dart';
+import 'package:appcenter_release_manager/src/data/webservice/release_details.dart';
 import 'package:appcenter_release_manager/src/util/formatter/date_time_formatter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class AppCenterReleaseManagerLatestReleases extends StatefulWidget {
   final String apiToken;
@@ -16,10 +15,11 @@ class AppCenterReleaseManagerLatestReleases extends StatefulWidget {
     required this.ownerName,
     required this.appName,
     this.showLogs = false,
+    super.key,
   });
 
   @override
-  _AppCenterReleaseManagerLatestReleasesState createState() =>
+  State<AppCenterReleaseManagerLatestReleases> createState() =>
       _AppCenterReleaseManagerLatestReleasesState();
 }
 
@@ -54,7 +54,7 @@ class _AppCenterReleaseManagerLatestReleasesState
           if (_error) {
             return ListView(
               children: [
-                Container(
+                SizedBox(
                   height: constraints.maxHeight,
                   width: constraints.minWidth,
                   child: Center(
@@ -103,21 +103,21 @@ class _AppCenterReleaseManagerLatestReleasesState
                 ),
                 const SizedBox(height: 16),
                 MaterialButton(
-                  child: Text(
-                    isLoadingDownload ? 'Downloading...' : 'Download',
-                    style: theme.accentTextTheme.bodyText1?.copyWith(
-                      color: theme.accentColorBrightness == Brightness.light
-                          ? Colors.white
-                          : Colors.black,
-                    ),
-                  ),
-                  color: theme.accentColor,
+                  color: theme.colorScheme.secondary,
                   onPressed: () async {
                     setState(() => isLoadingDownload = true);
                     await _appCenterReleaseManager!
                         .installRelease(releaseDetail);
                     setState(() => isLoadingDownload = false);
                   },
+                  child: Text(
+                    isLoadingDownload ? 'Downloading...' : 'Download',
+                    style: theme.textTheme.bodyText1?.copyWith(
+                      color: theme.brightness == Brightness.light
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Text(

@@ -1,6 +1,6 @@
-import 'package:appcenter_release_manager/appcenter_release_manager.dart';
 import 'package:appcenter_release_manager/src/data/webservice/app.dart';
 import 'package:appcenter_release_manager/src/data/webservice/owner.dart';
+import 'package:appcenter_release_manager/src/data/webservice/release.dart';
 import 'package:appcenter_release_manager/src/data/webservice/release_details.dart';
 import 'package:appcenter_release_manager/src/data/webservice/user.dart';
 

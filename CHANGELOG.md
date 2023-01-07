@@ -1,3 +1,13 @@
+## 2.0.1 - 2023-01-07
+Updated:
+- Dependencies
+- Fixed analyzer warnings
+- Version bump dart sdk to min 2.18.0
+Removed:
+- Travis
+Added:
+- Github Actions
+
 ## 2.0.0 - 2021-03-26
 Breaking:
 - #18
