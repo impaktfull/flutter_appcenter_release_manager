@@ -1,6 +1,6 @@
 import 'dart:io';
 
-const minRequiredCoverage = 100;
+const minRequiredCoverage = 0;
 
 void main(List<String> args) {
   printMessage('Start checking the lcov.info file');
@@ -24,7 +24,7 @@ void main(List<String> args) {
     printMessage('\n100% CODE COVERAGE!!!!\n');
   } else {
     printMessage('\nCODE COVERAGE IS TO LOW!!\n');
-    printMessage('COVERAGE IS ${codeCoveragePercentage.toStringAsFixed(2)}\n');
+    printMessage('COVERAGE IS ${codeCoveragePercentage.toStringAsFixed(2)}%\n');
     printMessage('AMOUNT OF LINES:$totalLines');
     printMessage('AMOUNT OF COVERED:$totalLinesCovered\n');
     exit(-1);

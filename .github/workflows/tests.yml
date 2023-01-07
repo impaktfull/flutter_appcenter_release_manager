@@ -20,4 +20,3 @@ jobs:
     - run: dart run ./tool/coverage/filter_test_coverage.dart
     - run: dart run ./tool/coverage/test_check_coverage.dart
     - run: coveralls-lcov coverage/lcov.info
-
