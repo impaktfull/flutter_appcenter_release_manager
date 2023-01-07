@@ -1,17 +1,20 @@
 import 'package:appcenter_release_manager/appcenter_release_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-const API_TOKEN = '';
-const PRE_DEFINED_OWNER_NAME = '';
-const PRE_DEFINED_APP_NAME = '';
+const apiToken = 'c7d589abe224a908cd69096b78b62b34e6b637f5';
+const preDefinedOwnerName = 'vanlooverenkoen-personal';
+const preDefinedAppName = 'App-Center-Android';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -22,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _appCenterReleaseManager = AppCenterReleaseManager(apiToken: API_TOKEN);
+    _appCenterReleaseManager = AppCenterReleaseManager(apiToken: apiToken);
   }
 
   @override
@@ -30,7 +33,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          brightness: Brightness.dark,
+          systemOverlayStyle: SystemUiOverlayStyle.light,
           title: const Text('Plugin example app'),
         ),
         body: IndexedStack(
@@ -40,8 +43,8 @@ class _MyAppState extends State<MyApp> {
             AppList(appCenterReleaseManager: _appCenterReleaseManager),
             AppCenterReleaseManagerLatestReleases(
               apiToken: _appCenterReleaseManager.apiToken,
-              ownerName: PRE_DEFINED_OWNER_NAME,
-              appName: PRE_DEFINED_APP_NAME,
+              ownerName: preDefinedOwnerName,
+              appName: preDefinedAppName,
             ),
             UserDetails(appCenterReleaseManager: _appCenterReleaseManager),
           ],
@@ -51,6 +54,8 @@ class _MyAppState extends State<MyApp> {
           onTap: (value) => setState(() => _index = value),
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.grey,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.group),
@@ -62,7 +67,7 @@ class _MyAppState extends State<MyApp> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.description),
-              label: 'Package',
+              label: preDefinedAppName,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
@@ -80,10 +85,11 @@ class UserDetails extends StatefulWidget {
 
   const UserDetails({
     required this.appCenterReleaseManager,
+    super.key,
   });
 
   @override
-  _UserDetailsState createState() => _UserDetailsState();
+  State<UserDetails> createState() => _UserDetailsState();
 }
 
 class _UserDetailsState extends State<UserDetails> {
@@ -100,12 +106,12 @@ class _UserDetailsState extends State<UserDetails> {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        Text(_user?.name ?? 'null'),
-        Text(_user?.displayName ?? 'null'),
-        Text(_user?.origin ?? 'null'),
-        Text(_user?.avatarUrl ?? 'null'),
-        Text(_user?.createdAt?.toIso8601String() ?? 'null'),
-        Text(_user?.canChangePassword.toString() ?? 'null'),
+        Text('Name: ${_user?.name}'),
+        Text('displayName: ${_user?.displayName}'),
+        Text('origin: ${_user?.origin}'),
+        Text('avatarUrl: ${_user?.avatarUrl}'),
+        Text('createdAt: ${_user?.createdAt}'),
+        Text('canChangePassword: ${_user?.canChangePassword}'),
       ],
     );
   }
@@ -121,10 +127,11 @@ class OwnerList extends StatefulWidget {
 
   const OwnerList({
     required this.appCenterReleaseManager,
+    super.key,
   });
 
   @override
-  _OwnerListState createState() => _OwnerListState();
+  State<OwnerList> createState() => _OwnerListState();
 }
 
 class _OwnerListState extends State<OwnerList> {
@@ -152,8 +159,7 @@ class _OwnerListState extends State<OwnerList> {
             width: 64,
             height: 64,
             padding: const EdgeInsets.all(4),
-            child:
-                item.avatarUrl == null ? null : Image.network(item.avatarUrl!),
+            child: item.avatarUrl == null ? const Placeholder() : Image.network(item.avatarUrl!),
           ),
           title: Text(item.name),
           onTap: () => Navigator.of(context).push<void>(
@@ -177,10 +183,11 @@ class OwnerAppList extends StatefulWidget {
   const OwnerAppList({
     required this.appCenterReleaseManager,
     required this.owner,
+    super.key,
   });
 
   @override
-  _OwnerAppListState createState() => _OwnerAppListState();
+  State<OwnerAppList> createState() => _OwnerAppListState();
 }
 
 class _OwnerAppListState extends State<OwnerAppList> {
@@ -193,8 +200,7 @@ class _OwnerAppListState extends State<OwnerAppList> {
   }
 
   Future<void> _getApps() async {
-    _list = await widget.appCenterReleaseManager
-        .getAllApps(ownerName: widget.owner.name);
+    _list = await widget.appCenterReleaseManager.getAllApps(ownerName: widget.owner.name);
     setState(() {});
   }
 
@@ -202,7 +208,7 @@ class _OwnerAppListState extends State<OwnerAppList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(widget.owner.name),
       ),
       body: ListView.builder(
@@ -214,7 +220,7 @@ class _OwnerAppListState extends State<OwnerAppList> {
               width: 64,
               height: 64,
               padding: const EdgeInsets.all(4),
-              child: item.iconUrl == null ? null : Image.network(item.iconUrl!),
+              child: item.iconUrl == null ? const Placeholder() : Image.network(item.iconUrl!),
             ),
             title: Text(item.name),
             onTap: () => Navigator.of(context).push<void>(
@@ -237,10 +243,11 @@ class AppList extends StatefulWidget {
 
   const AppList({
     required this.appCenterReleaseManager,
+    super.key,
   });
 
   @override
-  _AppListState createState() => _AppListState();
+  State<AppList> createState() => _AppListState();
 }
 
 class _AppListState extends State<AppList> {
@@ -268,7 +275,7 @@ class _AppListState extends State<AppList> {
             width: 64,
             height: 64,
             padding: const EdgeInsets.all(4),
-            child: item.iconUrl == null ? null : Image.network(item.iconUrl!),
+            child: item.iconUrl == null ? const Placeholder() : Image.network(item.iconUrl!),
           ),
           title: Text(item.name),
           onTap: () => Navigator.of(context).push<void>(
@@ -292,10 +299,11 @@ class AppDetail extends StatefulWidget {
   const AppDetail({
     required this.appCenterReleaseManager,
     required this.app,
+    super.key,
   });
 
   @override
-  _AppDetailState createState() => _AppDetailState();
+  State<AppDetail> createState() => _AppDetailState();
 }
 
 class _AppDetailState extends State<AppDetail> {
@@ -310,8 +318,7 @@ class _AppDetailState extends State<AppDetail> {
   Future<void> _getApps() async {
     final name = widget.app.owner?.name;
     if (name == null) return;
-    _list =
-        await widget.appCenterReleaseManager.getReleases(name, widget.app.name);
+    _list = await widget.appCenterReleaseManager.getReleases(name, widget.app.name);
     setState(() {});
   }
 
@@ -319,7 +326,7 @@ class _AppDetailState extends State<AppDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(widget.app.name),
       ),
       body: ListView.builder(
@@ -354,10 +361,11 @@ class ReleaseDetailScreen extends StatefulWidget {
     required this.appCenterReleaseManager,
     required this.app,
     required this.release,
+    super.key,
   });
 
   @override
-  _ReleaseDetailScreenState createState() => _ReleaseDetailScreenState();
+  State<ReleaseDetailScreen> createState() => _ReleaseDetailScreenState();
 }
 
 class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
@@ -372,8 +380,7 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
   Future<void> _getApps() async {
     final name = widget.app.owner?.name;
     if (name == null) return;
-    _details = await widget.appCenterReleaseManager
-        .getReleaseDetails(name, widget.app.name, widget.release.id);
+    _details = await widget.appCenterReleaseManager.getReleaseDetails(name, widget.app.name, widget.release.id);
     setState(() {});
   }
 
@@ -381,7 +388,7 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(widget.app.name),
       ),
       body: ListView(
@@ -392,13 +399,12 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
                 Text(_details!.uploadedAt?.toIso8601String() ?? ''),
                 Text('${_details!.shortVersion} (${_details!.version})'),
                 MaterialButton(
+                  color: Colors.blue,
+                  onPressed: () => widget.appCenterReleaseManager.installRelease(_details!),
                   child: const Text(
                     'Install',
                     style: TextStyle(color: Colors.white),
                   ),
-                  color: Colors.blue,
-                  onPressed: () =>
-                      widget.appCenterReleaseManager.installRelease(_details!),
                 ),
               ],
       ),

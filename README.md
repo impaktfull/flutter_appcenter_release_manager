@@ -41,6 +41,9 @@ final details = await AppCenterReleaseManager(apiToken: '').getLatestReleaseDeta
 AppCenterReleaseManager(apiToken: '').installReleaseByUrl(details.installUrl, appName: 'your-app-name', appVersion: 'your-version'); //appName & appVersion will be used in the notification on android. On iOS this is never used                                                      
 ```
 
+#### Full access
+If you also want to splits everything up by owner you need to provide a full access api token
+
 ### Other available methods for the AppCenterReleaseManager:
 Api Token should have read access only
 ```dart
