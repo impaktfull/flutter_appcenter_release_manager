@@ -18,6 +18,6 @@ jobs:
     - run: dart run ./tool/coverage/test_coverage_helper.dart
     - run: flutter test --coverage
     - run: dart run ./tool/coverage/filter_test_coverage.dart
-    - run: dart run ./tool/coverage/filter_test_coverage.dart
+    - run: dart run ./tool/coverage/test_check_coverage.dart
     - run: coveralls-lcov coverage/lcov.info
 
