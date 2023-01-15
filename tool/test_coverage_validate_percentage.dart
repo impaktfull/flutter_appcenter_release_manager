@@ -9,8 +9,8 @@ void main(List<String> args) {
     printMessage('${file.path}" does not exist');
     return;
   }
-  int totalLines = 0;
-  int totalLinesCovered = 0;
+  var totalLines = 0;
+  var totalLinesCovered = 0;
   final lines = file.readAsLinesSync();
   for (final line in lines) {
     if (line.startsWith('DA')) {
