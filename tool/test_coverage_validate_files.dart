@@ -42,14 +42,14 @@ void main() {
   printMessage('');
   printMessage('Detected ${sourceCodeFiles.length} source files');
 
-  sourceCodeFiles.forEach((file) {
+  for (final file in sourceCodeFiles) {
     final cleanupFile =
         file.path.replaceFirst('lib/', '').replaceFirst('.dart', '');
     final testFile = File('test/${cleanupFile}_test.dart');
     if (!testFile.existsSync()) {
       sourceCodeTodoFiles.add(testFile);
     }
-  });
+  }
   printMessage('');
   printMessage('Detected ${sourceCodeTodoFiles.length} untested files');
 
@@ -66,11 +66,10 @@ void main() {
   printMessage('');
   printMessage('There are no test yet created for:');
   printMessage('');
-  (sourceCodeTodoFiles
-        ..sort((file1, file2) => file1.path.compareTo(file2.path)))
-      .forEach((file) {
-    printMessage('${file.path}');
-  });
+  for (final file in (sourceCodeTodoFiles
+    ..sort((file1, file2) => file1.path.compareTo(file2.path)))) {
+    printMessage(file.path);
+  }
   printMessage('');
   if (sourceCodeTodoFiles.isNotEmpty) {
     printMessage(
