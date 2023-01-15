@@ -2,6 +2,7 @@ import 'package:appcenter_release_manager/src/appcenter_release_manager.dart';
 import 'package:appcenter_release_manager/src/data/webservice/release.dart';
 import 'package:appcenter_release_manager/src/data/webservice/release_details.dart';
 import 'package:appcenter_release_manager/src/util/formatter/date_time_formatter.dart';
+import 'package:appcenter_release_manager/src/widget/release_detail.dart';
 import 'package:flutter/material.dart';
 
 class AppCenterReleaseManagerLatestReleases extends StatefulWidget {
@@ -25,9 +26,8 @@ class AppCenterReleaseManagerLatestReleases extends StatefulWidget {
 
 class _AppCenterReleaseManagerLatestReleasesState
     extends State<AppCenterReleaseManagerLatestReleases> {
-  AppCenterReleaseManager? _appCenterReleaseManager;
+  late AppCenterReleaseManager _appCenterReleaseManager;
   var _loading = false;
-  var isLoadingDownload = false;
   var _error = false;
 
   final _releases = <Release>[];
@@ -75,56 +75,10 @@ class _AppCenterReleaseManagerLatestReleasesState
             );
           }
           if (releaseDetail != null) {
-            return ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '${releaseDetail.shortVersion} (${releaseDetail.version})',
-                        style: theme.textTheme.headline6,
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.close,
-                        color: theme.textTheme.subtitle2?.color,
-                      ),
-                      onPressed: _onCloseClicked,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  DateTimeFormatter.format(releaseDetail.uploadedAt),
-                  style: theme.textTheme.subtitle2
-                      ?.copyWith(fontWeight: FontWeight.normal),
-                ),
-                const SizedBox(height: 16),
-                MaterialButton(
-                  color: theme.colorScheme.secondary,
-                  onPressed: () async {
-                    setState(() => isLoadingDownload = true);
-                    await _appCenterReleaseManager!
-                        .installRelease(releaseDetail);
-                    setState(() => isLoadingDownload = false);
-                  },
-                  child: Text(
-                    isLoadingDownload ? 'Downloading...' : 'Download',
-                    style: theme.textTheme.bodyText1?.copyWith(
-                      color: theme.brightness == Brightness.light
-                          ? Colors.white
-                          : Colors.black,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  releaseDetail.releaseNotes,
-                  style: theme.textTheme.caption,
-                ),
-              ],
+            return ReleaseDetailWidget(
+              appCenterReleaseManager: _appCenterReleaseManager,
+              releaseDetail: releaseDetail,
+              onCloseClicked: _onCloseClicked,
             );
           }
           return ListView.builder(
@@ -154,8 +108,8 @@ class _AppCenterReleaseManagerLatestReleasesState
       _loading = _releases.isEmpty;
       _error = false;
       setState(() {});
-      final data = await _appCenterReleaseManager!
-          .getReleases(widget.ownerName, widget.appName);
+      final data = await _appCenterReleaseManager.getReleases(
+          widget.ownerName, widget.appName);
       _releases
         ..clear()
         ..addAll(data);
@@ -185,8 +139,8 @@ class _AppCenterReleaseManagerLatestReleasesState
       _loading = _releaseDetail == null;
       _error = false;
       setState(() {});
-      _releaseDetail = await _appCenterReleaseManager!
-          .getReleaseDetails(widget.ownerName, widget.appName, selectedItem.id);
+      _releaseDetail = await _appCenterReleaseManager.getReleaseDetails(
+          widget.ownerName, widget.appName, selectedItem.id);
     } catch (e) {
       if (widget.showLogs) print(e); // ignore: avoid_print
       _error = true;

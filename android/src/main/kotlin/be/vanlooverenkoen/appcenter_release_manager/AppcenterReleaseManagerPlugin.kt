@@ -38,6 +38,8 @@ class AppcenterReleaseManagerPlugin : FlutterPlugin, MethodCallHandler {
     private fun installApp(call: MethodCall, result: Result) {
         val context = context ?: return
         val urlArg = "install_url"
+        val openAndroidInstallScreenArg = "open_android_install_screen"
+        val keepAndroidNotificationArg = "keep_android_notification"
         val titleArg = "notification_title"
         val descriptionArg = "notification_description"
         if (!call.hasArgument(urlArg)) {
@@ -48,7 +50,9 @@ class AppcenterReleaseManagerPlugin : FlutterPlugin, MethodCallHandler {
         val title = call.argument<String>(titleArg) ?: DEFAULT_NOTIFICATION_TITLE
         val description = call.argument<String>(descriptionArg) ?: DEFAULT_NOTIFICATION_DESCRIPTION
         var destination: String = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).toString() + "/"
-        val fileName = "AppName.apk"
+        val openAndroidInstallScreen = call.argument<Boolean>(openAndroidInstallScreenArg) ?: true
+        val keepAndroidNotification = call.argument<Boolean>(keepAndroidNotificationArg) ?: false
+        val fileName = "${url.hashCode()}_app.apk"
         destination += fileName
         val file = File(destination)
         if (file.exists()) file.delete()
@@ -57,11 +61,13 @@ class AppcenterReleaseManagerPlugin : FlutterPlugin, MethodCallHandler {
         request.setDescription(description)
         request.setTitle(title)
         request.setDestinationInExternalFilesDir(context.applicationContext, Environment.DIRECTORY_DOWNLOADS, fileName)
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+        val notificationVisibility = if (keepAndroidNotification || !openAndroidInstallScreen) DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
+        else DownloadManager.Request.VISIBILITY_VISIBLE
+        request.setNotificationVisibility(notificationVisibility)
         val manager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val downloadId = manager.enqueue(request)
 
-        val onComplete: BroadcastReceiver = object : BroadcastReceiver() {
+        val onCompleteBroadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(ctxt: Context, intent: Intent) {
                 val install = Intent(Intent.ACTION_VIEW)
                 install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -71,9 +77,13 @@ class AppcenterReleaseManagerPlugin : FlutterPlugin, MethodCallHandler {
                 ctxt.startActivity(install)
                 ctxt.unregisterReceiver(this)
                 result.success(true)
+                return
             }
         }
-        context.registerReceiver(onComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+        val intentFilter = if (openAndroidInstallScreen) IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        else IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED)
+
+        context.registerReceiver(onCompleteBroadcastReceiver, intentFilter)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {

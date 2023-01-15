@@ -1,3 +1,12 @@
+## 2.1.0 - 2023-01-15
+Added:
+- (Android) Support to decide if the download should open the install screen automatically or the user should click on the download notification. By default the install screen will open.
+- (Android) Support to keep the notification after the download was completed. By default the notification will be dismissed after downloading.
+- (Android) Setting `openAndroidInstallScreen` to false will set `keepAndroidNotification` true. Otherwise the `installRelease` Future will never finish
+Updated:
+- Github Actions
+- Analyzer
+
 ## 2.0.1 - 2023-01-07
 Updated:
 - Dependencies

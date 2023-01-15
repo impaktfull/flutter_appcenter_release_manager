@@ -38,24 +38,47 @@ class AppCenterReleaseManager {
       _releaseRepo.getAllApps(ownerName: ownerName);
 
   Future<List<Release>> getReleases(String ownerName, String appName) =>
-      _releaseRepo.getReleases(ownerName, appName);
+      _releaseRepo.getReleases(
+        ownerName,
+        appName,
+      );
 
   Future<ReleaseDetail> getReleaseDetails(
           String ownerName, String appName, int id) =>
-      _releaseRepo.getReleaseDetail(ownerName, appName, id);
+      _releaseRepo.getReleaseDetail(
+        ownerName,
+        appName,
+        id,
+      );
 
   Future<ReleaseDetail?> getLatestReleaseDetails(
           String ownerName, String appName) =>
-      _releaseRepo.getLatestReleaseDetail(ownerName, appName);
+      _releaseRepo.getLatestReleaseDetail(
+        ownerName,
+        appName,
+      );
 
-  Future<void> installRelease(ReleaseDetail releaseDetail) async {
-    await _installReleaseByUrl(releaseDetail.installUrl,
-        appName: releaseDetail.appName,
-        appVersion: '${releaseDetail.shortVersion} (${releaseDetail.version})');
+  Future<void> installRelease(
+    ReleaseDetail releaseDetail, {
+    bool openAndroidInstallScreen = true,
+    bool keepAndroidNotification = false,
+  }) async {
+    await installReleaseByUrl(
+      releaseDetail.installUrl,
+      appName: releaseDetail.appName,
+      appVersion: '${releaseDetail.shortVersion} (${releaseDetail.version})',
+      openAndroidInstallScreen: openAndroidInstallScreen,
+      keepAndroidNotification: keepAndroidNotification,
+    );
   }
 
-  Future<void> _installReleaseByUrl(String url,
-      {required String appName, required String appVersion}) async {
+  Future<void> installReleaseByUrl(
+    String url, {
+    required String appName,
+    required String appVersion,
+    bool openAndroidInstallScreen = true,
+    bool keepAndroidNotification = false,
+  }) async {
     if (kIsWeb || Platform.isIOS) {
       await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
       return;
@@ -64,6 +87,8 @@ class AppCenterReleaseManager {
     data['install_url'] = url;
     data['notification_title'] = appName;
     data['notification_description'] = appVersion;
+    data['open_android_install_screen'] = openAndroidInstallScreen;
+    data['keep_android_notification'] = keepAndroidNotification;
 
     await _channel.invokeMethod<void>('install_app', data);
   }
