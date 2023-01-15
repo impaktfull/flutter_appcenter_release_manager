@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:appcenter_release_manager/src/data/exception/appcenter_release_manager_error.dart';
 import 'package:appcenter_release_manager/src/data/webservice/app.dart';
 import 'package:appcenter_release_manager/src/data/webservice/owner.dart';
@@ -9,7 +7,9 @@ import 'package:appcenter_release_manager/src/data/webservice/user.dart';
 import 'package:appcenter_release_manager/src/repo/appcenter_repo.dart';
 import 'package:appcenter_release_manager/src/repo/appcenter_repository.dart';
 import 'package:appcenter_release_manager/src/webservice/webservice.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:universal_io/io.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppCenterReleaseManager {
@@ -49,14 +49,14 @@ class AppCenterReleaseManager {
       _releaseRepo.getLatestReleaseDetail(ownerName, appName);
 
   Future<void> installRelease(ReleaseDetail releaseDetail) async {
-    await installReleaseByUrl(releaseDetail.installUrl,
+    await _installReleaseByUrl(releaseDetail.installUrl,
         appName: releaseDetail.appName,
         appVersion: '${releaseDetail.shortVersion} (${releaseDetail.version})');
   }
 
-  Future<void> installReleaseByUrl(String url,
+  Future<void> _installReleaseByUrl(String url,
       {required String appName, required String appVersion}) async {
-    if (Platform.isIOS) {
+    if (kIsWeb || Platform.isIOS) {
       await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
       return;
     }
