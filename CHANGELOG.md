@@ -1,3 +1,7 @@
+## 2.1.1 - 2023-01-16
+Fixed:
+- (Android) Memory leak when using `openAndroidInstallScreen: false, keepAndroidNotification: true`
+
 ## 2.1.0 - 2023-01-15
 Added:
 - (Android) Support to decide if the download should open the install screen automatically or the user should click on the download notification. By default the install screen will open.
