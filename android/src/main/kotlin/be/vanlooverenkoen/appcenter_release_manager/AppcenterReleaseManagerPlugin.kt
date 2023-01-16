@@ -69,21 +69,20 @@ class AppcenterReleaseManagerPlugin : FlutterPlugin, MethodCallHandler {
 
         val onCompleteBroadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(ctxt: Context, intent: Intent) {
-                val install = Intent(Intent.ACTION_VIEW)
-                install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                val fileProviderUri = FileProvider.getUriForFile(context, "${context.packageName}.fileProvider.install", file)
-                install.setDataAndType(fileProviderUri, manager.getMimeTypeForDownloadedFile(downloadId))
-                ctxt.startActivity(install)
+                if (openAndroidInstallScreen) {
+                    val install = Intent(Intent.ACTION_VIEW)
+                    install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    val fileProviderUri = FileProvider.getUriForFile(context, "${context.packageName}.fileProvider.install", file)
+                    install.setDataAndType(fileProviderUri, manager.getMimeTypeForDownloadedFile(downloadId))
+                    ctxt.startActivity(install)
+                }
                 ctxt.unregisterReceiver(this)
                 result.success(true)
                 return
             }
         }
-        val intentFilter = if (openAndroidInstallScreen) IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-        else IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-
-        context.registerReceiver(onCompleteBroadcastReceiver, intentFilter)
+        context.registerReceiver(onCompleteBroadcastReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
