@@ -2,9 +2,9 @@ import 'package:appcenter_release_manager/appcenter_release_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-const apiToken = 'f4f149f172f8f365edbba06dde53a12eb0b52373';
-const preDefinedOwnerName = 'vanlooverenkoen-personal';
-const preDefinedAppName = 'App-Center-Android';
+const apiToken = '';
+const preDefinedOwnerName = '';
+const preDefinedAppName = '';
 
 void main() {
   runApp(const MyApp());
@@ -410,7 +410,11 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
                 MaterialButton(
                   color: Colors.blue,
                   onPressed: () =>
-                      widget.appCenterReleaseManager.installRelease(_details!),
+                      widget.appCenterReleaseManager.installRelease(
+                    _details!,
+                    openAndroidInstallScreen: true,
+                    keepAndroidNotification: true,
+                  ),
                   child: const Text(
                     'Install',
                     style: TextStyle(color: Colors.white),
