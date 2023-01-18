@@ -1,4 +1,4 @@
-name: Code Formatting
+name: Sanity
 
 on:
   push:
