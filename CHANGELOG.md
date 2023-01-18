@@ -1,3 +1,7 @@
+## 2.2.0 - 2023-01-18
+Added:
+- (Android) Support for aab files
+
 ## 2.1.1 - 2023-01-16
 Fixed:
 - (Android) Memory leak when using `openAndroidInstallScreen: false, keepAndroidNotification: true`

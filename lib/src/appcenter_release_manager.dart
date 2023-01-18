@@ -63,8 +63,15 @@ class AppCenterReleaseManager {
     bool openAndroidInstallScreen = true,
     bool keepAndroidNotification = false,
   }) async {
+    var installUrl = releaseDetail.installUrl;
+    final secondaryUrl = releaseDetail.secondaryDownloadUrl;
+    if (Platform.isAndroid &&
+        releaseDetail.fileExtension == 'aab' &&
+        secondaryUrl != null) {
+      installUrl = secondaryUrl;
+    }
     await installReleaseByUrl(
-      releaseDetail.installUrl,
+      installUrl,
       appName: releaseDetail.appName,
       appVersion: '${releaseDetail.shortVersion} (${releaseDetail.version})',
       openAndroidInstallScreen: openAndroidInstallScreen,

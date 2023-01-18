@@ -15,7 +15,9 @@ class ReleaseDetail {
   final String fingerprint;
   final DateTime? uploadedAt;
   final String downloadUrl;
+  final String? secondaryDownloadUrl;
   final String installUrl;
+  final String fileExtension;
   final bool enabled;
   final String? provisioningProfileType;
   final String? provisioningProfileExpiryDate;
@@ -40,7 +42,9 @@ class ReleaseDetail {
     required this.fingerprint,
     required this.uploadedAt,
     required this.downloadUrl,
+    required this.secondaryDownloadUrl,
     required this.installUrl,
+    required this.fileExtension,
     required this.enabled,
     required this.provisioningProfileType,
     required this.provisioningProfileExpiryDate,
@@ -66,7 +70,9 @@ class ReleaseDetail {
         fingerprint: json['fingerprint'] as String,
         uploadedAt: DateTime.parse(json['uploaded_at'] as String),
         downloadUrl: json['download_url'] as String,
+        secondaryDownloadUrl: json['secondary_download_url'] as String?,
         installUrl: json['install_url'] as String,
+        fileExtension: json['fileExtension'] as String,
         enabled: json['enabled'] as bool,
         provisioningProfileType: json['provisioning_profile_type'] as String?,
         provisioningProfileExpiryDate:
@@ -95,7 +101,9 @@ class ReleaseDetail {
     data['fingerprint'] = fingerprint;
     data['uploaded_at'] = uploadedAt?.toIso8601String();
     data['download_url'] = downloadUrl;
+    data['secondary_download_url'] = secondaryDownloadUrl;
     data['install_url'] = installUrl;
+    data['fileExtension'] = fileExtension;
     data['enabled'] = enabled;
     data['provisioning_profile_type'] = provisioningProfileType;
     data['provisioning_profile_expiry_date'] = provisioningProfileExpiryDate;
