@@ -60,6 +60,7 @@ class AppcenterReleaseManagerPlugin : FlutterPlugin, MethodCallHandler {
         val request = DownloadManager.Request(Uri.parse(url))
         request.setDescription(description)
         request.setTitle(title)
+        request.setMimeType("application/vnd.android.package-archive")
         request.setDestinationInExternalFilesDir(context.applicationContext, Environment.DIRECTORY_DOWNLOADS, fileName)
         val notificationVisibility = if (keepAndroidNotification || !openAndroidInstallScreen) DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
         else DownloadManager.Request.VISIBILITY_VISIBLE

@@ -410,7 +410,11 @@ class _ReleaseDetailScreenState extends State<ReleaseDetailScreen> {
                 MaterialButton(
                   color: Colors.blue,
                   onPressed: () =>
-                      widget.appCenterReleaseManager.installRelease(_details!),
+                      widget.appCenterReleaseManager.installRelease(
+                    _details!,
+                    openAndroidInstallScreen: true,
+                    keepAndroidNotification: true,
+                  ),
                   child: const Text(
                     'Install',
                     style: TextStyle(color: Colors.white),
