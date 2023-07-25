@@ -2,9 +2,9 @@ name: Sanity
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
+  pull_request_target:
+    types: [opened, edited, synchronize]
 
 jobs:
   build:
