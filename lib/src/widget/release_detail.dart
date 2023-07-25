@@ -32,13 +32,13 @@ class _ReleaseDetailWidgetState extends State<ReleaseDetailWidget> {
             Expanded(
               child: Text(
                 '${widget.releaseDetail.shortVersion} (${widget.releaseDetail.version})',
-                style: theme.textTheme.headline6,
+                style: theme.textTheme.titleLarge,
               ),
             ),
             IconButton(
               icon: Icon(
                 Icons.close,
-                color: theme.textTheme.subtitle2?.color,
+                color: theme.textTheme.titleSmall?.color,
               ),
               onPressed: widget.onCloseClicked,
             ),
@@ -47,7 +47,7 @@ class _ReleaseDetailWidgetState extends State<ReleaseDetailWidget> {
         const SizedBox(height: 8),
         Text(
           DateTimeFormatter.format(widget.releaseDetail.uploadedAt),
-          style: theme.textTheme.subtitle2
+          style: theme.textTheme.titleSmall
               ?.copyWith(fontWeight: FontWeight.normal),
         ),
         const SizedBox(height: 16),
@@ -64,7 +64,7 @@ class _ReleaseDetailWidgetState extends State<ReleaseDetailWidget> {
           },
           child: Text(
             _isLoadingDownload ? 'Downloading...' : 'Download',
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyLarge?.copyWith(
               color: theme.brightness == Brightness.light
                   ? Colors.white
                   : Colors.black,
@@ -74,7 +74,7 @@ class _ReleaseDetailWidgetState extends State<ReleaseDetailWidget> {
         const SizedBox(height: 16),
         Text(
           widget.releaseDetail.releaseNotes,
-          style: theme.textTheme.caption,
+          style: theme.textTheme.bodySmall,
         ),
       ],
     );
