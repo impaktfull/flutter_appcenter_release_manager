@@ -1,12 +1,19 @@
-## 2.2.0 - 2023-01-18
+## 3.0.0
+Min flutter version 3.3.0
+
+Updated:
+- Dependencies
+- Kotlin version to 1.6.0
+
+## 2.2.0
 Added:
 - (Android) Support for aab files
 
-## 2.1.1 - 2023-01-16
+## 2.1.1
 Fixed:
 - (Android) Memory leak when using `openAndroidInstallScreen: false, keepAndroidNotification: true`
 
-## 2.1.0 - 2023-01-15
+## 2.1.0
 Added:
 - (Android) Support to decide if the download should open the install screen automatically or the user should click on the download notification. By default the install screen will open.
 - (Android) Support to keep the notification after the download was completed. By default the notification will be dismissed after downloading.
@@ -15,7 +22,7 @@ Updated:
 - Github Actions
 - Analyzer
 
-## 2.0.1 - 2023-01-07
+## 2.0.1
 Updated:
 - Dependencies
 - Fixed analyzer warnings
@@ -25,7 +32,7 @@ Removed:
 Added:
 - Github Actions
 
-## 2.0.0 - 2021-03-26
+## 2.0.0
 Breaking:
 - #18
 
@@ -38,33 +45,33 @@ Breaking:
 Added:
 - Support for testers. Collaborators, members & testers can now use the app with an api token.
 
-## 1.0.1 - 2021-03-19
+## 1.0.1
 Fixed:
 - crash when fetching user details with null avatarurl
 
-## 1.0.0 - 2021-03-13
+## 1.0.0
 Added:
 - Nullsafety
 - Nullsafety example
 
-## 0.0.5 - 2020-12-26
+## 0.0.5
 Added:
 - No access error so we can check if the api token is valid
 Fixed:
 - Non exposed exceptions
 
-## 0.0.4 - 2020-12-26
+## 0.0.4
 Fixed:
 - json.encode would fail if DateTime was used in a toJson
 
-## 0.0.3 - 2020-12-26
+## 0.0.3
 Added:
 - User Details
 - Extra documentation: `Api Token should have read access only`
 
-## 0.0.2 - 2020-12-18
+## 0.0.2
 Added:
 - pub.dev version label 
 
-## 0.0.1 - 2020-12-18
+## 0.0.1
 Initial Release

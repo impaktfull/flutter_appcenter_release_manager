@@ -65,7 +65,7 @@ class _AppCenterReleaseManagerLatestReleasesState
                         const SizedBox(height: 12),
                         Text(
                           'Something went wrong with the AppCenterApi',
-                          style: theme.textTheme.bodyText1,
+                          style: theme.textTheme.bodyLarge,
                         ),
                       ],
                     ),
@@ -88,11 +88,11 @@ class _AppCenterReleaseManagerLatestReleasesState
               return ListTile(
                 title: Text(
                   '${item.shortVersion} (${item.version})',
-                  style: theme.textTheme.subtitle2,
+                  style: theme.textTheme.titleSmall,
                 ),
                 subtitle: Text(
                   DateTimeFormatter.format(item.uploadedAt),
-                  style: theme.textTheme.caption,
+                  style: theme.textTheme.bodySmall,
                 ),
                 onTap: () => _onReleaseClicked(item),
               );
