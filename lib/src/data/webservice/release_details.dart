@@ -80,7 +80,7 @@ class ReleaseDetail {
         provisioningProfileName: json['provisioning_profile_name'] as String?,
         isProvisioningProfileSyncing:
             json['is_provisioning_profile_syncing'] as bool?,
-        releaseNotes: json['release_notes'] as String,
+        releaseNotes: json['release_notes'] as String? ?? "",
       );
 
   Map<String, dynamic> toJson() {
