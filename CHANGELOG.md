@@ -1,3 +1,7 @@
+## 3.0.1
+
+Don't fail if release notes are `null` (we fall back to an empty string)
+
 ## 3.0.0
 Min flutter version 3.3.0
 
