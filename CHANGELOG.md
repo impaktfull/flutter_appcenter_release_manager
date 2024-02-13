@@ -1,3 +1,9 @@
+# 4.0.1
+
+# Fix
+
+- Example documentation related to credentials
+
 # 4.0.0
 
 ## Breaking:

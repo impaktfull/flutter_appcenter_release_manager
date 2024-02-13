@@ -4,13 +4,9 @@ Demonstrates how to use the appcenter_release_manager plugin.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+In order for you to use this example you need to have:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. An appcenter account and an app created.
+2. Create an api token
+3. Copy lib/config.txt to lib/config.dart
+4. Replace the values in lib/config.dart with your own values
