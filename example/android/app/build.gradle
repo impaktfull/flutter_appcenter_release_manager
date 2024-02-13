@@ -37,8 +37,8 @@ android {
     }
 
     defaultConfig {
-        applicationId "be.vanlooverenkoen.appcenter_release_manager_example"
-        minSdkVersion 16
+        applicationId "com.impaktfull.appcenter_release_manager_example"
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

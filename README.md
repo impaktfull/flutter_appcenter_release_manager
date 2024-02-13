@@ -1,15 +1,9 @@
 # AppCenter Release Manager
 
-
 [![pub package](https://img.shields.io/pub/v/appcenter_release_manager.svg)](https://pub.dartlang.org/packages/appcenter_release_manager)
-[![Build Status Analyzer](https://github.com/vanlooverenkoen/flutter_appcenter_release_manager/actions/workflows/analyzer.yml/badge.svg)](https://github.com/vanlooverenkoen/flutter_appcenter_release_manager/actions/workflows/analyzer.yml)
-[![Build Status Formatting](https://github.com/vanlooverenkoen/flutter_appcenter_release_manager/actions/workflows/formatting.yml/badge.svg)](https://github.com/vanlooverenkoen/flutter_appcenter_release_manager/actions/workflows/formatting.yml)
-[![Build Status Test](https://github.com/vanlooverenkoen/flutter_appcenter_release_manager/actions/workflows/tests.yml/badge.svg)](https://github.com/vanlooverenkoen/flutter_appcenter_release_manager/actions/workflows/tests.yml)
-[![Coverage Status](https://coveralls.io/repos/github/vanlooverenkoen/flutter_appcenter_release_manager/badge.svg)](https://coveralls.io/github/vanlooverenkoen/flutter_appcenter_release_manager)
-[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 Download appcenter updates straight from your iOS or Android app.
-
 
 ### Use the predefined UI with the AppcenterReleaseManagerLatestReleases widget
 Api Token should have read access only

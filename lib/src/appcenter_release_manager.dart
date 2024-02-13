@@ -23,7 +23,7 @@ class AppCenterReleaseManager {
     required this.apiToken,
   }) {
     if (apiToken.isEmpty) {
-      throw AppCenterReleaseManagerError(message: 'apiToken is empty');
+      throw AppCenterReleaseManagerError('apiToken is empty');
     }
     _releaseRepo =
         AppCenterRepository(webservice: Webservice(apiToken: apiToken));

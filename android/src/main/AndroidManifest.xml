@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="be.vanlooverenkoen.appcenter_release_manager">
+    package="com.impaktfull.appcenter_release_manager">
 
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application>
         <provider
-            android:name="be.vanlooverenkoen.appcenter_release_manager.FileProvider"
+            android:name="com.impaktfull.appcenter_release_manager.FileProvider"
             android:authorities="${applicationId}.fileProvider.install"
             android:exported="false"
             android:grantUriPermissions="true">

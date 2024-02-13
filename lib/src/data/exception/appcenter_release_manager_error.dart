@@ -1,7 +1,7 @@
 class AppCenterReleaseManagerError extends Error {
   final String? message;
 
-  AppCenterReleaseManagerError({this.message});
+  AppCenterReleaseManagerError(this.message);
 
   @override
   String toString() {

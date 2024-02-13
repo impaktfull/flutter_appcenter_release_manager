@@ -1,0 +1,5 @@
+class Config {
+  static const apiToken = '';
+  static const preDefinedOwnerName = '';
+  static const preDefinedAppName = '';
+}

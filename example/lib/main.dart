@@ -1,17 +1,16 @@
 import 'package:appcenter_release_manager/appcenter_release_manager.dart';
+import 'package:appcenter_release_manager_example/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-const apiToken = '';
-const preDefinedOwnerName = '';
-const preDefinedAppName = '';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({
+    super.key,
+  });
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -25,7 +24,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _appCenterReleaseManager = AppCenterReleaseManager(apiToken: apiToken);
+    _appCenterReleaseManager =
+        AppCenterReleaseManager(apiToken: Config.apiToken);
   }
 
   @override
@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           systemOverlayStyle: SystemUiOverlayStyle.light,
-          title: const Text('Plugin example app'),
+          title: const Text('AppCenter App'),
         ),
         body: IndexedStack(
           index: _index,
@@ -43,8 +43,8 @@ class _MyAppState extends State<MyApp> {
             AppList(appCenterReleaseManager: _appCenterReleaseManager),
             AppCenterReleaseManagerLatestReleases(
               apiToken: _appCenterReleaseManager.apiToken,
-              ownerName: preDefinedOwnerName,
-              appName: preDefinedAppName,
+              ownerName: Config.preDefinedOwnerName,
+              appName: Config.preDefinedAppName,
             ),
             UserDetails(appCenterReleaseManager: _appCenterReleaseManager),
           ],
@@ -67,7 +67,7 @@ class _MyAppState extends State<MyApp> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.description),
-              label: preDefinedAppName,
+              label: Config.preDefinedAppName,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),

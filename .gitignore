@@ -89,3 +89,6 @@
 
 # Fvm
 .fvm/flutter_sdk
+
+# config.dart
+example/lib/config.dart
